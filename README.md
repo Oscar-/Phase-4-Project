@@ -24,4 +24,4 @@ RhythmRadar is an interactive music review app that allows users to rate and com
 3. Mp3 - play button 
 
 ## Our Kanban Board
-![image](https://github.com/user-attachments/assets/cc3d1cdc-aff3-4602-994f-14a068aa8d28)
+![image](https://github.com/user-attachments/assets/566e27ec-9ed9-42ca-bd20-23d5fd0c9ff5)
