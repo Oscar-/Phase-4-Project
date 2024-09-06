@@ -17,6 +17,7 @@ RhythmRadar is an interactive music review app that allows users to rate and com
 ![image](https://github.com/user-attachments/assets/ee764a59-7ffc-430a-b9f7-fd6c0bad93a0)
 
 ## A list of your API routes (includes HTTP Verb, Endpoint, Purpose)
+![image](https://github.com/user-attachments/assets/23199990-0894-4387-8f93-c740c76b1dfb)
 
 ## Three stretch goals
 1. User Authentication 
