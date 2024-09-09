@@ -32,9 +32,12 @@ class Song(db.Model, SerializerMixin):
     __tablename__ = "songs"
 
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
     length = db.Column(db.Integer)
     lyrics = db.Column(db.String)
     genre = db.Column(db.String)
+    release_dt = db.Column(db.String)
+    photo = db.Column(db.String)
     # Relationships
     reviews = db.relationship('Review', backref='song', lazy=True)
     artists = association_proxy('reviews', 'artist')  # Proxy relationship to get artists through reviews
@@ -73,6 +76,7 @@ class User(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
     email = db.Column(db.String)
+    password = db.Column(db.String)
 
     # Relationships
     reviews = db.relationship('Review', backref='user', lazy=True)
