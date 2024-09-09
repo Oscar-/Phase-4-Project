@@ -124,7 +124,25 @@ def handle_song():
         db.session.commit()
         return jsonify({'id': new_song.id, 'name': new_song.name, 'genre': new_song.genre}), 201
 
-@app.route('/song')
+@app.route('/song/<int:id', method = ['GET', 'DELETE'])
+def song_by_id(id):
+    song = song.query.get(id)
+
+    if request.method == 'GET':
+        # Handle GET request
+        if song is None:
+            return jsonify({'error': 'song not found'}), 404
+        song_data = {'id': song.id, 'name': song.name, 'genre': song.genre}
+        return jsonify(song_data)
+
+    elif request.method == 'DELETE':
+        # Handle DELETE request
+        if song is None:
+            return jsonify({'error': 'song not found'}), 404
+
+        db.session.delete(song)
+        db.session.commit()
+        return jsonify({'message': 'song deleted successfully'}), 200
 
 
 if __name__ == '__main__':
