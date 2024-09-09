@@ -12,10 +12,12 @@ class Artist(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
+    age = db.Column(db.Integer)
     gender = db.Column(db.String)
     birth_date = db.Column(db.Date)
     birth_place = db.Column(db.String)
     biography = db.Column(db.String)
+    image = db.Column(db.String)
 
     # Relationships
     reviews = db.relationship('Review', backref='artist', lazy=True)
@@ -37,7 +39,7 @@ class Song(db.Model, SerializerMixin):
     lyrics = db.Column(db.String)
     genre = db.Column(db.String)
     release_dt = db.Column(db.String)
-    photo = db.Column(db.String)
+    image = db.Column(db.String)
     # Relationships
     reviews = db.relationship('Review', backref='song', lazy=True)
     artists = association_proxy('reviews', 'artist')  # Proxy relationship to get artists through reviews
