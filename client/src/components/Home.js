@@ -1,25 +1,35 @@
 import { useState, useEffect } from "react";
 import SongCard from "./Song/SongCard";
 
-
 function Home() {
-
-    //const [mostPlayedSongs, setMostPlayedSongs] = useState([])
-    const [songs, setSongs] = useState([])
+    const [songs, setSongs] = useState([]);
+    const [error, setError] = useState(null); // Added state to handle errors
 
     useEffect(() => {
-        // UPDATE FETCH REQUEST 
-        fetch("http://127.0.0.1:5555/songs")
+        fetch("http://127.0.0.1:5555/song")
         .then(res => {
-            if(res.ok) {
-                return res.json()
+            if (res.ok) {
+                return res.json();
             } else {
-                // UPDATE FETCH REQUEST 
-                console.error("fetch http://127.0.0.1:5555/songs went wrong")
+                throw new Error("Failed to fetch songs");
             }
         })
-        .then(data => setSongs(data))
-    }, []) 
+        .then(data => {
+            if (Array.isArray(data)) {
+                setSongs(data);
+            } else {
+                throw new Error("Unexpected data format");
+            }
+        })
+        .catch(err => {
+            setError(err.message); // Set error message
+            console.error(err);
+        });
+    }, []);
+
+    if (error) {
+        return <div>Error: {error}</div>; // Display error message if there's an error
+    }
 
     return (
         <div>
@@ -34,22 +44,18 @@ function Home() {
                 }}
             >
                 {songs.map((el) => (
-                    <section style={{ display: "flex", flexDirection: "column" }}>
+                    <section
+                        key={el.id}
+                        style={{ display: "flex", flexDirection: "column" }}
+                    >
                         <h3>{el.length} minutes</h3>
-
-                        <SongCard key={el.id} artist={el} />
+                        <SongCard artist={el} />
                     </section>
                 ))}
             </ul>
-
-            <section>
-            </section>
+            <section></section>
         </div>
     );
-
 }
-
-
-
 
 export default Home;

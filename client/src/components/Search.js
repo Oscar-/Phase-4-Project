@@ -4,19 +4,23 @@ function Search({ searchArtist, searchSong }) {
     const [form, setForm] = useState('');
 
     // Function to handle input change
-    function handleChange(e) {
+    const handleChange = (e) => {
         setForm(e.target.value);
-    }
+    };
 
     // Function to handle form submission
-    function handleSubmit(e) {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        // Here you can choose which callback to call based on your requirements
-        if (form.trim()) { // Check if input is not empty
-            searchArtist(form); // Call searchArtist if that's what you need
-            // searchSong(form); // Uncomment this if you want to call searchSong
+        if (form.trim()) {
+            // Call the appropriate callback based on your requirements
+            if (searchArtist) {
+                searchArtist(form);
+            }
+            if (searchSong) {
+                searchSong(form);
+            }
         }
-    }
+    };
 
     return (
         <div className="searchbar">
@@ -29,7 +33,7 @@ function Search({ searchArtist, searchSong }) {
                     value={form}
                     onChange={handleChange}
                 />
-                <button type="submit">Search</button> {/* Add a submit button */}
+                <button type="submit">Search</button>
             </form>
         </div>
     );

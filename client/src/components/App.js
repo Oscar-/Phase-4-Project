@@ -3,53 +3,38 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import ArtistForm from "./Artist/ArtistForm";
 import ArtistContainer from "./Artist/ArtistContainer";
-import ReviewContainer from "./Review/ReviewContainer";
 import SongContainer from "./Song/SongContainer";
-import NavBar from "./NavBar";
+import NavBar from "./NavBar"; // Import NavBar
+import Header from "./Header"; // Import the Header component
 
 function App() {
   const [songs, setSongs] = useState([]);
   const [artists, setArtists] = useState([]);
 
   useEffect(() => {
-    // Fetch songs with error handling
-    fetch("http://127.0.0.1:5555/songs")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch songs");
-        }
-        return res.json();
-      })
+    // Fetch data from backend
+    fetch("http://127.0.0.1:5555/song")
+      .then((res) => res.ok ? res.json() : Promise.reject("Failed to fetch songs"))
       .then((data) => setSongs(data))
-      .catch((error) => console.error(error.message));
+      .catch((error) => console.error(error));
 
-    // Fetch artists with error handling
-    fetch("http://127.0.0.1:5555/artists")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch artists");
-        }
-        return res.json();
-      })
+    fetch("http://127.0.0.1:5555/artist")
+      .then((res) => res.ok ? res.json() : Promise.reject("Failed to fetch artists"))
       .then((data) => setArtists(data))
-      .catch((error) => console.error(error.message));
+      .catch((error) => console.error(error));
   }, []);
 
-  const addArtist = (artist) =>
-    setArtists((current) => [...current, artist]);
+  const addArtist = (artist) => setArtists((prev) => [...prev, artist]);
 
   return (
     <div className="App light">
-      <NavBar />
+      <Header />
+      <NavBar /> {/* Add NavBar here */}
       <Routes>
-        <Route
-          path="/artists/new"
-          element={<ArtistForm addArtist={addArtist} />}
-        />
-        <Route path="/artists/:id" element={<ArtistContainer artists={artists} />} />
-        <Route path="/reviews/:id" element={<ReviewContainer />} />
-        <Route path="/songs/:id" element={<SongContainer songs={songs} />} />
-        <Route exact path="/" element={<Home />} />
+        <Route path="/artist/new" element={<ArtistForm addArtist={addArtist} />} />
+        <Route path="/artist/:id" element={<ArtistContainer artists={artists} />} />
+        <Route path="/song/:id" element={<SongContainer songs={songs} />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </div>
   );

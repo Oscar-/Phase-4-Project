@@ -1,40 +1,53 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 
 function ArtistDetail() {
     const [artist, setArtist] = useState({
         discography: []
     });
-
-    // 4a. fetch current production based on params
-    // params.id
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const params = useParams();
-    
-    // 4c. if response is not ok, navigate to /not-found
-    useEffect(() => {
-        fetch(`http://127.0.0.1:5555/artists/${params.id}`)
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                }
-            })
-            .then(data => setArtist(data))
-            .catch(() => {
-                // Handle fetch errors or navigate to /not-found
-                // e.g., navigate("/not-found");
-            });
-    }, [params.id]);
+    const navigate = useNavigate();
 
-    // 4b. destructure the values and display them on page
+    useEffect(() => {
+        fetch(`http://127.0.0.1:5555/artist/${params.id}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("Failed to fetch artist");
+                }
+                return res.json();
+            })
+            .then(data => {
+                setArtist(data);
+                setLoading(false);
+            })
+            .catch(() => {
+                setError("Artist not found");
+                setLoading(false);
+                // Optionally navigate to a not-found page
+                // navigate("/not-found");
+            });
+    }, [params.id, navigate]);
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>{error}</p>;
+    }
+
     const { id, name, gender, birth_date, birth_place, biography, image } = artist;
 
     return (
-        <div className="project-detail" id={id}>
+        <div className="artist-detail" id={id}>
             <h1>{name}</h1>
             <p>{biography}</p>
-            <div className="project-card">
+            <div className="artist-card">
                 <figure className="image">
-                    <img src={image} alt={name} />
+                    <img src={image || "default-image.jpg"} alt={name} /> {/* Fallback image */}
                     <section>
                         <p>Gender: {gender}</p>
                         <p>Birth Date: {birth_date}</p>
@@ -42,18 +55,18 @@ function ArtistDetail() {
                     </section>
                 </figure>
                 <section className="details">
-                    <h3 style={{ margin: "16px auto" }}>Discography:</h3>
+                    <h3>Discography:</h3>
                     <ul className="songs">
                         {artist.discography.map((song) => (
                             <li key={song.id}>
                                 <img
                                     width="100px"
-                                    src={song.artist.image}
+                                    src={song.artist.image || "default-image.jpg"} // Fallback image
                                     alt={song.artist.name}
                                 />
                                 <div className="song-member">
-                                    <Link to={`/artists/${song.artist.id}`}>
-                                        <p style={{ fontStyle: "italic" }}>{song.artist.name}</p>
+                                    <Link to={`/artist/${song.artist.id}`}>
+                                        <p className="artist-name">{song.artist.name}</p>
                                     </Link>
                                     <p>{song.name}</p>
                                 </div>

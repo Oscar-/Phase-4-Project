@@ -1,6 +1,199 @@
 :root {
-    --bg: #282c34;
-    --header: #fff;
-    --link: #61dafb;
-    --text: hsla(0, 0%, 100%, 0.88);
-  }
+  --bg: #282c34;
+  --header: #fff;
+  --link: #61dafb;
+  --text: hsla(0, 0%, 100%, 0.88);
+}
+
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4; /* Default background color */
+  color: #333; /* Default text color */
+}
+
+/* Light theme styles */
+.App.light {
+  background-color: #ffffff; /* White background for light theme */
+  color: #000000; /* Black text color for light theme */
+}
+
+/* Additional styles for elements within the light theme */
+.App.light h1, .App.light h2, .App.light h3 {
+  color: #000000; /* Darker headings for light theme */
+}
+
+.App.light .button {
+  background-color: #e0e0e0; /* Light grey background for buttons */
+  color: #000000; /* Dark text color for buttons */
+}
+
+/* NavBar styles */
+.NavBar {
+  background-color: #333; /* Dark background for the navbar */
+  padding: 10px;
+}
+
+.NavBar ul {
+  list-style: none; /* Remove default list styling */
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.NavBar li {
+  margin-right: 20px;
+}
+
+.NavBar a {
+  color: #fff; /* White text color */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.NavBar a:hover {
+  text-decoration: underline; /* Underline on hover for better UX */
+}
+
+/* Header styles */
+header {
+  background-color: var(--bg); /* Use CSS variable for background */
+  color: var(--header); /* Use CSS variable for text color */
+  padding: 10px 20px; /* Padding around the header */
+  text-align: center; /* Center align text */
+}
+
+header h1 {
+  font-size: 2rem; /* Larger font size for the header */
+  margin: 0; /* Remove default margin */
+}
+
+header .logo {
+  font-size: 1.5rem; /* Adjust size of the logo emoji */
+}
+
+/* Style for individual artist cards */
+.card {
+  max-width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card .image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card .details {
+  padding: 15px;
+}
+
+.card .details h2 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.card .details p {
+  margin: 5px 0;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.card .details a {
+  text-decoration: none;
+  color: var(--link);
+}
+
+.card .details a:hover {
+  text-decoration: underline;
+}
+
+/* Style for the artist detail page */
+.artist-detail {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.artist-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 800px;
+}
+
+.artist-card .image img {
+  width: 100%;
+  height: auto;
+}
+
+.artist-card section {
+  padding: 15px;
+}
+
+.artist-card .details {
+  width: 100%;
+  padding: 15px;
+}
+
+.songs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.songs li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.songs img {
+  margin-right: 10px;
+}
+
+.song-member {
+  display: flex;
+  flex-direction: column;
+}
+
+.artist-name {
+  font-style: italic;
+  color: var(--link);
+}
+
+.cards {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cards .card {
+  margin: 10px;
+  /* Additional styling for cards */
+}
+
+.cards .card .image {
+  margin-bottom: 10px;
+}
+
+.cards .card .details {
+  padding: 10px;
+}
+
+.cards .card .details h2 {
+  margin: 0;
+}

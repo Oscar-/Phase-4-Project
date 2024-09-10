@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function SongCard({ song }) {
+function SongCard({ song = {} }) {
 	const { name, length, lyrics, genre, release_dt, image, id } = song;
 
 	return (
@@ -9,7 +9,7 @@ function SongCard({ song }) {
 				<img src={image} alt={name} />
 			</figure>
 			<section className="details">
-				<Link to={`/songs/${id}`}>
+				<Link to={`/song/${id}`}>
 					<h2>{name}</h2>
 				</Link>
                 <p>{genre}</p>
