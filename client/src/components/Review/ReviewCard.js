@@ -1,4 +1,4 @@
 
 
 
-export default ReviewCard;
+//export default ReviewCard;

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 function ArtistDetail() {
     const [artist, setArtist] = useState({
-        songs: []
+        discography: []
     });
 
     // 4a. fetch current production based on params
@@ -44,7 +44,7 @@ function ArtistDetail() {
                 <section className="details">
                     <h3 style={{ margin: "16px auto" }}>Discography:</h3>
                     <ul className="songs">
-                        {artist.songs.map((song) => (
+                        {artist.discography.map((song) => (
                             <li key={song.id}>
                                 <img
                                     width="100px"

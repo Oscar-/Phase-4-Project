@@ -1,29 +1,30 @@
 import { useState, useEffect } from "react";
-import ArtistCard from "./artist/ArtistCard";
+import SongCard from "./Song/SongCard";
 
 
 function Home() {
 
-    const [mostPlayedSongs, setMostPlayedSongs] = useState([])
+    //const [mostPlayedSongs, setMostPlayedSongs] = useState([])
+    const [songs, setSongs] = useState([])
 
     useEffect(() => {
         // UPDATE FETCH REQUEST 
-        fetch("http://127.0.0.1:5555/longest-movies")
+        fetch("http://127.0.0.1:5555/songs")
         .then(res => {
             if(res.ok) {
                 return res.json()
             } else {
                 // UPDATE FETCH REQUEST 
-                console.error("fetch http://127.0.0.1:5555/longest-movies went wrong")
+                console.error("fetch http://127.0.0.1:5555/songs went wrong")
             }
         })
-        .then(data => setMostPlayedSongs(data))
+        .then(data => setSongs(data))
     }, []) 
 
     return (
         <div>
             <section>
-                <h2>Most Played</h2>
+                <h2>Song Selection!</h2>
             </section>
             <ul
                 style={{
@@ -32,17 +33,16 @@ function Home() {
                     justifyContent: "center",
                 }}
             >
-                {mostPlayedSongs.map((el) => (
+                {songs.map((el) => (
                     <section style={{ display: "flex", flexDirection: "column" }}>
                         <h3>{el.length} minutes</h3>
 
-                        <ArtistCard key={el.id} artist={el} />
+                        <SongCard key={el.id} artist={el} />
                     </section>
                 ))}
             </ul>
 
             <section>
-                <h2>Top 10</h2>
             </section>
         </div>
     );

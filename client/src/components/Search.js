@@ -1,37 +1,38 @@
 import React, { useState } from "react";
 
-//Search function
-//Pass down cb as prop
-function Search({ searchblank }) {
-    const [from, setForm] = useState('');
-}
+function Search({ searchArtist, searchSong }) {
+    const [form, setForm] = useState('');
 
-//function for handle change
-function handleChange(e) {
-    setForm(e.target.value);
-}
+    // Function to handle input change
+    function handleChange(e) {
+        setForm(e.target.value);
+    }
 
-//function for handleSubmit
-function handleSubmit(e) {
-    e.preventDefault();
-    searchblank(form);
-}
+    // Function to handle form submission
+    function handleSubmit(e) {
+        e.preventDefault();
+        // Here you can choose which callback to call based on your requirements
+        if (form.trim()) { // Check if input is not empty
+            searchArtist(form); // Call searchArtist if that's what you need
+            // searchSong(form); // Uncomment this if you want to call searchSong
+        }
+    }
 
-// add onSubmit
-  // add onChange event & value
-  return (
-    <div className="searchbar">
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="search">Search Songs, Artist, or Reviews:</label>
-        <input
-          type="text"
-          id="search"
-          placeholder="Type to search..."
-          value={form.name}
-          onChange={(e) => handleChange(e)}
-        />
-      </form>
-    </div>
-  );
+    return (
+        <div className="searchbar">
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="search">Search Songs, Artists, or Reviews:</label>
+                <input
+                    type="text"
+                    id="search"
+                    placeholder="Type to search..."
+                    value={form}
+                    onChange={handleChange}
+                />
+                <button type="submit">Search</button> {/* Add a submit button */}
+            </form>
+        </div>
+    );
+}
 
 export default Search;

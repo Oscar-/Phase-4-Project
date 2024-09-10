@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "./components/Home";
-import ArtistForm from "./components/artist/ArtistForm";
-import ArtistContainer from "./components/artist/ArtistContainer";
-import ReviewContainer from "./components/review /ReviewContainer";
-import SongContainer from "./components/song/SongContainer";
-import NavBar from "./components/NavBar";
+import Home from "./Home";
+import ArtistForm from "./Artist/ArtistForm";
+import ArtistContainer from "./Artist/ArtistContainer";
+import ReviewContainer from "./Review/ReviewContainer";
+import SongContainer from "./Song/SongContainer";
+import NavBar from "./NavBar";
 
 function App() {
   const [songs, setSongs] = useState([]);
