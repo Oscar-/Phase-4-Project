@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 
 # Standard library imports
-from random import randint, choice as rc
-
-# Remote library imports
-from faker import Faker
+from random import randint
+from datetime import datetime
+import csv
 
 # Local imports
 from app import app
 from models import db, Artist, Song, Review, Favorite, User
-import csv
 
 def clear_database():
     """Clear all data from the database."""
@@ -27,10 +25,20 @@ def create_artists(rows):
         artists = []
         for i in range(1, len(rows)):
             try:
-                artist = Artist(date=rows[i][2], number=i)
+                artist = Artist(
+                    name=rows[i][1],  # Name should be at index 1
+                    age=int(rows[i][2]),  # Age should be at index 2
+                    gender=rows[i][3],  # Gender at index 3
+                    birth_date=datetime.strptime(rows[i][0], '%Y-%m-%d'),  # Birth date at index 0
+                    birth_place=rows[i][4],
+                    biography=rows[i][5],
+                    image=rows[i][6]
+                )
                 artists.append(artist)
+            except ValueError as ve:
+                print(f"Error creating artist: {ve}")  # Capture the specific value error
             except Exception as e:
-                print(f"Error creating artist: {e}")
+                print(f"General error creating artist: {e}")
         db.session.add_all(artists)
         db.session.commit()
     return artists
@@ -41,7 +49,14 @@ def create_songs(rows):
         songs = []
         for i in range(1, len(rows)):
             try:
-                song = Song(name=rows[i][-1], occupation=rows[i][1])
+                song = Song(
+                    name=rows[i][7],
+                    length=int(rows[i][8]),  # Assuming song length is in the 9th column
+                    genre=rows[i][9],
+                    lyrics=rows[i][10],
+                    release_dt=datetime.strptime(rows[i][11], '%Y-%m-%d'),
+                    image=rows[i][12]
+                )
                 songs.append(song)
             except Exception as e:
                 print(f"Error creating song: {e}")
@@ -49,47 +64,17 @@ def create_songs(rows):
         db.session.commit()
     return songs
 
-def create_reviews(rows, artists, songs, favorites, users):
-    """Seed reviews into the database."""
-    with app.app_context():
-        reviews = []
-        for i in range(1, len(rows)):
-            try:
-                review = Review(
-                    rating=randint(1, 5),
-                    song=Song.query.filter_by(name=rows[i][-1]).first(),
-                    # artist=Artist.query.filter_by(date=rows[i][2]).first(),
-                    # favorite=Favorite.query.filter_by(name=rows[i][3]).first(),
-                    # user=User.query.filter_by(name=rows[i][4]).first()
-                )
-                reviews.append(review)
-            except Exception as e:
-                print(f"Error creating review: {e}")
-        db.session.add_all(reviews)
-        db.session.commit()
-    return reviews
-
-def create_favorites(rows):
-    """Seed favorites into the database."""
-    with app.app_context():
-        favorites = []
-        for i in range(1, len(rows)):
-            try:
-                favorite = Favorite(name=rows[i][-1], occupation=rows[i][1])
-                favorites.append(favorite)
-            except Exception as e:
-                print(f"Error creating favorite: {e}")
-        db.session.add_all(favorites)
-        db.session.commit()
-    return favorites
-
 def create_users(rows):
     """Seed users into the database."""
     with app.app_context():
         users = []
         for i in range(1, len(rows)):
             try:
-                user = User(name=rows[i][-1], occupation=rows[i][1])
+                user = User(
+                    username=rows[i][13],  # Assuming username is the 14th column
+                    email=rows[i][14],
+                    password=rows[i][15]
+                )
                 users.append(user)
             except Exception as e:
                 print(f"Error creating user: {e}")
@@ -97,8 +82,49 @@ def create_users(rows):
         db.session.commit()
     return users
 
+def create_favorites(rows):
+    """Seed favorites into the database."""
+    with app.app_context():
+        favorites = []
+        for i in range(1, len(rows)):
+            try:
+                user = User.query.filter_by(username=rows[i][13]).first()
+                artist = Artist.query.filter_by(name=rows[i][2]).first()
+                if user and artist:
+                    favorite = Favorite(user=user, artist=artist)
+                    favorites.append(favorite)
+            except Exception as e:
+                print(f"Error creating favorite: {e}")
+        db.session.add_all(favorites)
+        db.session.commit()  # Ensure to commit the favorites to the session
+    return favorites
+
+def create_reviews(rows, artists, songs, users):
+    """Seed reviews into the database."""
+    with app.app_context():
+        reviews = []
+        for i in range(1, len(rows)):
+            try:
+                artist = Artist.query.filter_by(name=rows[i][1]).first()
+                song = Song.query.filter_by(name=rows[i][7]).first()
+                user = User.query.filter_by(username=rows[i][13]).first()
+                if artist and song and user:
+                    review = Review(
+                        rating=int(rows[i][16]),
+                        comment=rows[i][17],
+                        artist=artist,
+                        song=song,
+                        user=user
+                    )
+                    reviews.append(review)
+            except Exception as e:
+                print(f"Error creating review: {e}")
+        db.session.add_all(reviews)
+        db.session.commit()  # Ensure reviews are committed
+    return reviews
+
+
 if __name__ == '__main__':
-    fake = Faker()
     print("Clearing database...")
     clear_database()
 
@@ -106,21 +132,24 @@ if __name__ == '__main__':
         print("Opening CSV...")
         with open('seed.csv', newline='') as csvfile:
             rows = [row for row in csv.reader(csvfile, delimiter=',', quotechar='|')]
+            
             print("Seeding artists...")
             artists = create_artists(rows)
+            
             print("Seeding songs...")
             songs = create_songs(rows)
-            print("Seeding favorites...")
-            favorites = create_favorites(rows)
+            
             print("Seeding users...")
             users = create_users(rows)
+            
+            print("Seeding favorites...")
+            favorites = create_favorites(rows)
+            
             print("Seeding reviews...")
-            create_reviews(rows, artists, songs, favorites, users)
-            print("Complete!")
+            create_reviews(rows, artists, songs, users)
+            
+            print("Seeding complete!")
     except FileNotFoundError:
         print("Error: CSV file not found.")
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
-
-
-    

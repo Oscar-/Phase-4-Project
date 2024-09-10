@@ -1,4 +1,4 @@
-date,number,artist_name,song_name,occupation,favorite_name,user_name,rating
-2024-01-01,1,John Doe,Imagine,Musician,Top Hit,Jane Smith,5
-2024-02-15,2,Paul McCartney,Hey Jude,Composer,Classic Rock,Alex Brown,4
-2023-11-20,3,Freddie Mercury,Bohemian Rhapsody,Singer,Golden Oldies,Sam Green,5
+birth_date,name,age,gender,birth_place,biography,image,song_name,song_length,song_genre,song_lyrics,song_release_date,song_image,user_name,user_email,user_password,rating,comment,favorite_name
+1970-01-01,John Doe,53,Male,New York City,John's bio,image_url_1.jpg,Imagine,180,Rock,Imagine all the people,1971-10-11,song_image_1.jpg,Jane Smith,jane.smith@example.com,password123,5,Great song!,Top Hit
+1942-06-18,Paul McCartney,81,Male,Liverpool,Paul's bio,image_url_2.jpg,Hey Jude,240,Rock,Hey Jude,1968-08-26,song_image_2.jpg,Alex Brown,alex.brown@example.com,password456,4,Classic hit!,Classic Rock
+1946-09-05,Freddie Mercury,77,Male,Zanzibar,Freddie's bio,image_url_3.jpg,Bohemian Rhapsody,354,Rock,Is this the real life?,1975-10-31,song_image_3.jpg,Sam Green,sam.green@example.com,password789,5,Masterpiece!,Golden Oldies
