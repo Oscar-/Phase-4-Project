@@ -27,7 +27,7 @@ function ArtistForm() {
         },
         validationSchema: schema,
         onSubmit: (values) => {
-            fetch("/artists", {
+            fetch("/artist", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,13 +35,21 @@ function ArtistForm() {
                 body: JSON.stringify(values),
             })
             .then((res) => {
-                if (res.ok) {
-                    res.json().then((artist) => {
-                        navigate(`/artists/${artist.id}`); // Use navigate for redirection
-                    });
-                } else {
-                    res.json().then((err) => console.error("Error:", err));
-                }
+                console.log('Response Status:', res.status); // Log the status code
+
+                return res.text().then((text) => {
+                    console.log('Response Text:', text); // Log the response text
+
+                    if (res.ok) {
+                        const jsonResponse = JSON.parse(text); // Parse the text if the status is OK
+                        navigate(`/artists/${jsonResponse.id}`);
+                    } else {
+                        console.error("Error response:", text); // Log the error response
+                    }
+                });
+            })
+            .catch((error) => {
+                console.error("Fetch error:", error); // Log any fetch errors
             });
         },
     });
@@ -147,3 +155,4 @@ function ArtistForm() {
 }
 
 export default ArtistForm;
+

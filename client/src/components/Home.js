@@ -37,7 +37,7 @@ function Home() {
             <section>
                 <About />
             </section>
-            <ul
+            {/* <ul
                 style={{
                     display: "flex",
                     flexWrap: "wrap",
@@ -53,7 +53,7 @@ function Home() {
                         <SongCard artist={el} />
                     </section>
                 ))}
-            </ul>
+            </ul> */}
             <section></section>
         </div>
     );
