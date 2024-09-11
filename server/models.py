@@ -24,7 +24,7 @@ class Artist(db.Model, SerializerMixin):
     # Many-to-many relationships
     many_songs = association_proxy('reviews', 'song')
 
-    serialize_rules = ('-reviews.artist', '-favorites.artist', '-favorites.user.reviews', '-favorites.user.favorites')
+    serialize_rules = ('-reviews.artist', '-favorites.artist', '-favorites.user.reviews', '-favorites.user.favorites', '-songs.artist')
 
     @validates('name')
     def validate_name(self, key, value):
