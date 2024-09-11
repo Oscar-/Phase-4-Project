@@ -3,60 +3,85 @@ from config import db
 from models import User, Song, Artist
 from app import app
 
-def create_users():
-    with app.app_context():
-        users = [
-            User(
-                username='Jane Smith',
-                email='jane.smith@example.com',
-                password='password123',
-                image_url='image_url_1.jpg',
-                bio="John's bio"
-            ),
-            User(
-                username='Alex Brown',
-                email='alex.brown@example.com',
-                password='password456',
-                image_url='image_url_2.jpg',
-                bio="Paul's bio"
-            ),
-            User(
-                username='Sam Green',
-                email='sam.green@example.com',
-                password='password789',
-                image_url='image_url_3.jpg',
-                bio="Freddie's bio"
-            )
-        ]
-        db.session.bulk_save_objects(users)
-        db.session.commit()
+# def create_users():
+#     with app.app_context():
+#         users = [
+#             User(
+#                 username='Jane Smith',
+#                 email='jane.smith@example.com',
+#                 password='password123',
+#                 image_url='image_url_1.jpg',
+#                 bio="John's bio"
+#             ),
+#             User(
+#                 username='Alex Brown',
+#                 email='alex.brown@example.com',
+#                 password='password456',
+#                 image_url='image_url_2.jpg',
+#                 bio="Paul's bio"
+#             ),
+#             User(
+#                 username='Sam Green',
+#                 email='sam.green@example.com',
+#                 password='password789',
+#                 image_url='image_url_3.jpg',
+#                 bio="Freddie's bio"
+#             )
+#         ]
+#         db.session.bulk_save_objects(users)
+#         db.session.commit()
 
 def create_songs():
     with app.app_context():
         songs = [
+            # New songs for new artists
             Song(
-                name='Imagine',
-                genre='Rock',
-                length=180,
-                lyrics='Imagine all the people',
-                release_dt=datetime.strptime('1971-10-11', '%Y-%m-%d'),
-                image='song_image_1.jpg'
+                name='Stronger',
+                genre='Hip-Hop',
+                length=305,
+                lyrics='That that don’t kill me can only make me stronger',
+                release_dt=datetime.strptime('2007-09-11', '%Y-%m-%d'),
+                image='stronnger_image.jpg'
             ),
             Song(
-                name='Hey Jude',
+                name='Uptown Funk',
+                genre='Pop',
+                length=269,
+                lyrics='Don’t believe me, just watch',
+                release_dt=datetime.strptime('2014-11-10', '%Y-%m-%d'),
+                image='uptown_funk_image.jpg'
+            ),
+            Song(
+                name='Livin’ on a Prayer',
                 genre='Rock',
                 length=240,
-                lyrics='Hey Jude',
-                release_dt=datetime.strptime('1968-08-26', '%Y-%m-%d'),
-                image='song_image_2.jpg'
+                lyrics='Woah, we’re halfway there',
+                release_dt=datetime.strptime('1986-10-31', '%Y-%m-%d'),
+                image='livin_on_a_prayer_image.jpg'
             ),
             Song(
-                name='Bohemian Rhapsody',
-                genre='Rock',
-                length=354,
-                lyrics='Is this the real life?',
-                release_dt=datetime.strptime('1975-10-31', '%Y-%m-%d'),
-                image='song_image_3.jpg'
+                name='Safaera',
+                genre='Reggaeton',
+                length=230,
+                lyrics='Baby, yo no quiero na’',
+                release_dt=datetime.strptime('2020-02-28', '%Y-%m-%d'),
+                image='safaera_image.jpg'
+            ),
+            Song(
+                name='No Rest for the Wicked',
+                genre='Regional Mexican',
+                length=215,
+                lyrics='Ya me voy a ir',
+                release_dt=datetime.strptime('2022-04-15', '%Y-%m-%d'),
+                image='no_rest_for_the_wicked_image.jpg'
+            ),
+            Song(
+                name='HUMBLE.',
+                genre='Hip-Hop',
+                length=177,
+                lyrics='I’m so fuckin’ sick and tired of the Photoshop',
+                release_dt=datetime.strptime('2017-03-30', '%Y-%m-%d'),
+                image='humble_image.jpg'
             )
         ]
         db.session.bulk_save_objects(songs)
@@ -65,40 +90,68 @@ def create_songs():
 def create_artists():
     with app.app_context():
         artists = [
+            # New artists
             Artist(
-                name='John Doe',
+                name='Kanye West',
                 gender='Male',
-                age=53,
-                birth_date=datetime.strptime('1970-01-01', '%Y-%m-%d'),
-                birth_place='New York City',
-                biography="John's bio",
-                image='image_url_1.jpg'
+                age=47,
+                birth_date=datetime.strptime('1977-06-08', '%Y-%m-%d'),
+                birth_place='Atlanta, Georgia',
+                biography='Kanye West is an American rapper, singer, songwriter, record producer, and fashion designer.',
+                image='kanye_west_image.jpg'
             ),
             Artist(
-                name='Paul McCartney',
+                name='Bruno Mars',
                 gender='Male',
-                age=81,
-                birth_date=datetime.strptime('1942-06-18', '%Y-%m-%d'),
-                birth_place='Liverpool',
-                biography="Paul's bio",
-                image='image_url_2.jpg'
+                age=38,
+                birth_date=datetime.strptime('1985-10-08', '%Y-%m-%d'),
+                birth_place='Honolulu, Hawaii',
+                biography='Bruno Mars is an American singer, songwriter, record producer, and performer.',
+                image='bruno_mars_image.jpg'
             ),
             Artist(
-                name='Freddie Mercury',
+                name='Bon Jovi',
                 gender='Male',
-                age=77,
-                birth_date=datetime.strptime('1946-09-05', '%Y-%m-%d'),
-                birth_place='Zanzibar',
-                biography="Freddie's bio",
-                image='image_url_3.jpg'
+                age=61,
+                birth_date=datetime.strptime('1962-03-02', '%Y-%m-%d'),
+                birth_place='Perth Amboy, New Jersey',
+                biography='Bon Jovi is an American rock band formed in 1983.',
+                image='bon_jovi_image.jpg'
+            ),
+            Artist(
+                name='Bad Bunny',
+                gender='Male',
+                age=30,
+                birth_date=datetime.strptime('1994-03-10', '%Y-%m-%d'),
+                birth_place='San Juan, Puerto Rico',
+                biography='Bad Bunny is a Puerto Rican singer, rapper, and songwriter.',
+                image='bad_bunny_image.jpg'
+            ),
+            Artist(
+                name='Grupo Frontera',
+                gender='Group',
+                age=None,
+                birth_date=None,
+                birth_place=None,
+                biography='Grupo Frontera is a Mexican regional band.',
+                image='grupo_frontera_image.jpg'
+            ),
+            Artist(
+                name='Kendrick Lamar',
+                gender='Male',
+                age=37,
+                birth_date=datetime.strptime('1987-06-17', '%Y-%m-%d'),
+                birth_place='Compton, California',
+                biography='Kendrick Lamar is an American rapper, songwriter, and record producer.',
+                image='kendrick_lamar_image.jpg'
             )
         ]
         db.session.bulk_save_objects(artists)
         db.session.commit()
 
-def read_users():
-    with app.app_context():
-        return User.query.all()
+# def read_users():
+#     with app.app_context():
+#         return User.query.all()
 
 def read_songs():
     with app.app_context():
@@ -123,13 +176,13 @@ def delete_artists():
         Artist.query.delete()
         db.session.commit()
 
-def update_user(user_id, **kwargs):
-    with app.app_context():
-        user = User.query.get(user_id)
-        if user:
-            for key, value in kwargs.items():
-                setattr(user, key, value)
-            db.session.commit()
+# def update_user(user_id, **kwargs):
+#     with app.app_context():
+#         user = User.query.get(user_id)
+#         if user:
+#             for key, value in kwargs.items():
+#                 setattr(user, key, value)
+#             db.session.commit()
 
 def update_song(song_id, **kwargs):
     with app.app_context():
@@ -148,6 +201,6 @@ def update_artist(artist_id, **kwargs):
             db.session.commit()
 
 if __name__ == '__main__':
-    create_users()
+    # create_users()
     create_songs()
     create_artists()

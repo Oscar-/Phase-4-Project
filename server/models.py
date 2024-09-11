@@ -38,11 +38,11 @@ class Artist(db.Model, SerializerMixin):
             raise ValueError('Age must be between 0 and 120')
         return value
 
-    @validates('gender')
-    def validate_gender(self, key, value):
-        if value not in ['Male', 'Female', 'Non-binary', 'Other']:
-            raise ValueError('Invalid gender')
-        return value
+    # @validates('gender')
+    # def validate_gender(self, key, value):
+    #     if value not in ['Male', 'Female', 'Non-binary', 'Other']:
+    #         raise ValueError('Invalid gender')
+    #     return value
 
     def __repr__(self):
         return f'<Artist {self.id}, {self.name}, {self.gender}, {self.birth_place}, {self.biography}>'
@@ -152,11 +152,11 @@ class User(db.Model, SerializerMixin):
 
     serialize_rules = ('-reviews.user', '-favorites.user')
 
-    @validates('username')
-    def validate_username(self, key, value):
-        if len(value) < 3:
-            raise ValueError('Username must be at least 3 characters long')
-        return value
+    # @validates('username')
+    # def validate_username(self, key, value):
+    #     if len(value) < 3:
+    #         raise ValueError('Username must be at least 3 characters long')
+    #     return value
 
     # @validates('email')
     # def validate_email(self, key, value):
