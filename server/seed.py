@@ -1,154 +1,153 @@
-#!/usr/bin/env python3
-
-# Standard library imports
 from datetime import datetime
-import csv
-
-# Local imports
+from config import db
+from models import User, Song, Artist
 from app import app
-from models import db, Artist, Song, Review, Favorite, User
 
-def clear_database():
-    """Clear all data from the database."""
+def create_users():
     with app.app_context():
-        Artist.query.delete()
-        Song.query.delete()
-        Review.query.delete()
-        Favorite.query.delete()
+        users = [
+            User(
+                username='Jane Smith',
+                email='jane.smith@example.com',
+                password='password123',
+                image_url='image_url_1.jpg',
+                bio="John's bio"
+            ),
+            User(
+                username='Alex Brown',
+                email='alex.brown@example.com',
+                password='password456',
+                image_url='image_url_2.jpg',
+                bio="Paul's bio"
+            ),
+            User(
+                username='Sam Green',
+                email='sam.green@example.com',
+                password='password789',
+                image_url='image_url_3.jpg',
+                bio="Freddie's bio"
+            )
+        ]
+        db.session.bulk_save_objects(users)
+        db.session.commit()
+
+def create_songs():
+    with app.app_context():
+        songs = [
+            Song(
+                name='Imagine',
+                genre='Rock',
+                length=180,
+                lyrics='Imagine all the people',
+                release_dt=datetime.strptime('1971-10-11', '%Y-%m-%d'),
+                image='song_image_1.jpg'
+            ),
+            Song(
+                name='Hey Jude',
+                genre='Rock',
+                length=240,
+                lyrics='Hey Jude',
+                release_dt=datetime.strptime('1968-08-26', '%Y-%m-%d'),
+                image='song_image_2.jpg'
+            ),
+            Song(
+                name='Bohemian Rhapsody',
+                genre='Rock',
+                length=354,
+                lyrics='Is this the real life?',
+                release_dt=datetime.strptime('1975-10-31', '%Y-%m-%d'),
+                image='song_image_3.jpg'
+            )
+        ]
+        db.session.bulk_save_objects(songs)
+        db.session.commit()
+
+def create_artists():
+    with app.app_context():
+        artists = [
+            Artist(
+                name='John Doe',
+                gender='Male',
+                age=53,
+                birth_date=datetime.strptime('1970-01-01', '%Y-%m-%d'),
+                birth_place='New York City',
+                biography="John's bio",
+                image='image_url_1.jpg'
+            ),
+            Artist(
+                name='Paul McCartney',
+                gender='Male',
+                age=81,
+                birth_date=datetime.strptime('1942-06-18', '%Y-%m-%d'),
+                birth_place='Liverpool',
+                biography="Paul's bio",
+                image='image_url_2.jpg'
+            ),
+            Artist(
+                name='Freddie Mercury',
+                gender='Male',
+                age=77,
+                birth_date=datetime.strptime('1946-09-05', '%Y-%m-%d'),
+                birth_place='Zanzibar',
+                biography="Freddie's bio",
+                image='image_url_3.jpg'
+            )
+        ]
+        db.session.bulk_save_objects(artists)
+        db.session.commit()
+
+def read_users():
+    with app.app_context():
+        return User.query.all()
+
+def read_songs():
+    with app.app_context():
+        return Song.query.all()
+
+def read_artists():
+    with app.app_context():
+        return Artist.query.all()
+
+def delete_users():
+    with app.app_context():
         User.query.delete()
         db.session.commit()
 
-def create_artists(rows):
-    """Seed artists into the database."""
+def delete_songs():
     with app.app_context():
-        artists = []
-        for i in range(1, len(rows)):
-            try:
-                artist = Artist(
-                    name=rows[i][1],  # Name should be at index 1
-                    age=int(rows[i][2]),  # Age should be at index 2
-                    gender=rows[i][3],  # Gender at index 3
-                    birth_date=datetime.strptime(rows[i][0], '%Y-%m-%d'),  # Birth date at index 0
-                    birth_place=rows[i][4],
-                    biography=rows[i][5],
-                    image=rows[i][6]
-                )
-                artists.append(artist)
-            except ValueError as ve:
-                print(f"Error creating artist: {ve}")  # Capture the specific value error
-            except Exception as e:
-                print(f"General error creating artist: {e}")
-        db.session.add_all(artists)
+        Song.query.delete()
         db.session.commit()
-    return artists
 
-def create_songs(rows):
-    """Seed songs into the database."""
+def delete_artists():
     with app.app_context():
-        songs = []
-        for i in range(1, len(rows)):
-            try:
-                song = Song(
-                    name=rows[i][7],  # Song name at index 7
-                    length=int(rows[i][8]),  # Song length at index 8
-                    genre=rows[i][9],  # Song genre at index 9
-                    lyrics=rows[i][10],  # Song lyrics at index 10
-                    release_dt=datetime.strptime(rows[i][11], '%Y-%m-%d'),  # Song release date at index 11
-                    image=rows[i][12]  # Song image at index 12
-                )
-                songs.append(song)
-            except Exception as e:
-                print(f"Error creating song: {e}")
-        db.session.add_all(songs)
+        Artist.query.delete()
         db.session.commit()
-    return songs
 
-def create_users(rows):
-    """Seed users into the database."""
+def update_user(user_id, **kwargs):
     with app.app_context():
-        users = []
-        for i in range(1, len(rows)):
-            try:
-                user = User(
-                    username=rows[i][13],  # Username at index 13
-                    email=rows[i][14],  # Email at index 14
-                    password=rows[i][15]  # Password at index 15
-                )
-                users.append(user)
-            except Exception as e:
-                print(f"Error creating user: {e}")
-        db.session.add_all(users)
-        db.session.commit()
-    return users
+        user = User.query.get(user_id)
+        if user:
+            for key, value in kwargs.items():
+                setattr(user, key, value)
+            db.session.commit()
 
-def create_favorites(rows, users, artists):
-    """Seed favorites into the database."""
+def update_song(song_id, **kwargs):
     with app.app_context():
-        favorites = []
-        for i in range(1, len(rows)):
-            try:
-                user = User.query.filter_by(username=rows[i][13]).first()  # Username at index 13
-                artist = Artist.query.filter_by(name=rows[i][19]).first()  # Favorite name at index 19
-                if user and artist:
-                    favorite = Favorite(user=user, artist=artist)
-                    favorites.append(favorite)
-            except Exception as e:
-                print(f"Error creating favorite: {e}")
-        db.session.add_all(favorites)
-        db.session.commit()  # Ensure to commit the favorites to the session
-    return favorites
+        song = Song.query.get(song_id)
+        if song:
+            for key, value in kwargs.items():
+                setattr(song, key, value)
+            db.session.commit()
 
-def create_reviews(rows, artists, songs, users):
-    """Seed reviews into the database."""
+def update_artist(artist_id, **kwargs):
     with app.app_context():
-        reviews = []
-        for i in range(1, len(rows)):
-            try:
-                artist = Artist.query.filter_by(name=rows[i][1]).first()  # Artist name at index 1
-                song = Song.query.filter_by(name=rows[i][7]).first()  # Song name at index 7
-                user = User.query.filter_by(username=rows[i][13]).first()  # Username at index 13
-                if artist and song and user:
-                    review = Review(
-                        rating=int(rows[i][16]),  # Rating at index 16
-                        comment=rows[i][17],  # Comment at index 17
-                        artist=artist,
-                        song=song,
-                        user=user
-                    )
-                    reviews.append(review)
-            except Exception as e:
-                print(f"Error creating review: {e}")
-        db.session.add_all(reviews)
-        db.session.commit()  # Ensure reviews are committed
-    return reviews
-
+        artist = Artist.query.get(artist_id)
+        if artist:
+            for key, value in kwargs.items():
+                setattr(artist, key, value)
+            db.session.commit()
 
 if __name__ == '__main__':
-    print("Clearing database...")
-    clear_database()
-
-    try:
-        print("Opening CSV...")
-        with open('seed.csv', newline='') as csvfile:
-            rows = [row for row in csv.reader(csvfile, delimiter=',', quotechar='|')]
-            
-            print("Seeding artists...")
-            artists = create_artists(rows)
-            
-            print("Seeding songs...")
-            songs = create_songs(rows)
-            
-            print("Seeding users...")
-            users = create_users(rows)
-            
-            print("Seeding favorites...")
-            favorites = create_favorites(rows, users, artists)
-            
-            print("Seeding reviews...")
-            create_reviews(rows, artists, songs, users)
-            
-            print("Seeding complete!")
-    except FileNotFoundError:
-        print("Error: CSV file not found.")
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+    create_users()
+    create_songs()
+    create_artists()

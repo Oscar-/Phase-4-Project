@@ -11,6 +11,8 @@ def index():
     return '<h1>Project Server</h1>'
 
 @app.route('/artist', methods=['GET', 'POST'])
+
+
 def handle_artists():
     if request.method == 'GET':
         try:

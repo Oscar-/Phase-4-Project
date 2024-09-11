@@ -1,44 +1,44 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.orm import validates
 from datetime import datetime
-from config import db
-import re
-
-# Helper function for validating email format
-def is_valid_email(email):
-    return re.match(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', email)
+from config import db  # Import db from config
 
 class Artist(db.Model, SerializerMixin):
     __tablename__ = "artists"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)  # Name is required
+    name = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer)
-    gender = db.Column(db.String)  # Can add validation for valid genders
+    gender = db.Column(db.String)
     birth_date = db.Column(db.Date)
     birth_place = db.Column(db.String)
     biography = db.Column(db.String)
     image = db.Column(db.String)
 
     # Relationships
+    songs = db.relationship('Song', back_populates='artist')
     reviews = db.relationship('Review', back_populates='artist', lazy=True)
     favorites = db.relationship('Favorite', back_populates='artist', lazy=True)
 
+    # Many-to-many relationships
+    many_songs = association_proxy('reviews', 'song')
+
     serialize_rules = ('-reviews.artist', '-favorites.artist', '-favorites.user.reviews', '-favorites.user.favorites')
 
-    @db.validates('name')
+    @validates('name')
     def validate_name(self, key, value):
         if len(value) < 2:
             raise ValueError('Artist name must be at least 2 characters long')
         return value
 
-    @db.validates('age')
+    @validates('age')
     def validate_age(self, key, value):
         if value is not None and (value < 0 or value > 120):
             raise ValueError('Age must be between 0 and 120')
         return value
 
-    @db.validates('gender')
+    @validates('gender')
     def validate_gender(self, key, value):
         if value not in ['Male', 'Female', 'Non-binary', 'Other']:
             raise ValueError('Invalid gender')
@@ -51,36 +51,41 @@ class Song(db.Model, SerializerMixin):
     __tablename__ = "songs"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)  # Name is required
-    genre = db.Column(db.String, nullable=False)  # Genre is required
-    length = db.Column(db.Integer)  # Length in seconds
+    name = db.Column(db.String, nullable=False)
+    genre = db.Column(db.String, nullable=False)
+    length = db.Column(db.Integer)
     lyrics = db.Column(db.String)
-    release_dt = db.Column(db.Date, nullable=False)  # Release date is required
+    release_dt = db.Column(db.Date, nullable=False)
     image = db.Column(db.String)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'))
 
     # Relationships
+    artist = db.relationship('Artist', back_populates='songs')
     reviews = db.relationship('Review', back_populates='song', lazy=True)
     favorites = db.relationship('Favorite', back_populates='song', lazy=True)
 
+    # Many-to-many relationships
+    many_artists = association_proxy('reviews', 'artist')
+
     serialize_rules = ('-reviews.song', '-favorites.song', '-favorites.user.reviews', '-favorites.user.favorites')
 
-    @db.validates('name')
+    @validates('name')
     def validate_name(self, key, value):
         if len(value) < 1:
             raise ValueError('Song name must be at least 1 character long')
         return value
 
-    @db.validates('genre')
+    @validates('genre')
     def validate_genre(self, key, value):
         if len(value) < 1:
             raise ValueError('Genre must be at least 1 character long')
         return value
 
-    @db.validates('release_dt')
-    def validate_release_date(self, key, value):
-        if value > datetime.now().date():
-            raise ValueError('Release date cannot be in the future')
-        return value
+    # @validates('release_dt')
+    # def validate_release_date(self, key, value):
+    #     if value > datetime.now().date():
+    #         raise ValueError('Release date cannot be in the future')
+    #     return value
 
     def __repr__(self):
         return f'<Song {self.id}, {self.name}, {self.genre}, {self.release_dt}>'
@@ -104,7 +109,7 @@ class Review(db.Model, SerializerMixin):
 
     serialize_rules = ('-artist.reviews', '-song.reviews', '-user.reviews')
 
-    @db.validates('rating')
+    @validates('rating')
     def validate_rating(self, key, value):
         if value < 1 or value > 5:
             raise ValueError('Rating must be between 1 and 5')
@@ -135,9 +140,9 @@ class User(db.Model, SerializerMixin):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, unique=True, nullable=False)  # Username is required
-    email = db.Column(db.String, unique=True, nullable=False)  # Email is required
-    password = db.Column(db.String, nullable=False)  # Password is required
+    username = db.Column(db.String, unique=True, nullable=False)
+    email = db.Column(db.String, unique=True, nullable=False)
+    password = db.Column(db.String, nullable=False)
     image_url = db.Column(db.String)
     bio = db.Column(db.String)
 
@@ -147,23 +152,17 @@ class User(db.Model, SerializerMixin):
 
     serialize_rules = ('-reviews.user', '-favorites.user')
 
-    @db.validates('username')
+    @validates('username')
     def validate_username(self, key, value):
         if len(value) < 3:
             raise ValueError('Username must be at least 3 characters long')
         return value
 
-    @db.validates('email')
-    def validate_email(self, key, value):
-        if not is_valid_email(value):
-            raise ValueError('Invalid email address')
-        return value
-
-    @db.validates('password')
-    def validate_password(self, key, value):
-        if len(value) < 8:
-            raise ValueError('Password must be at least 8 characters long')
-        return value
+    # @validates('email')
+    # def validate_email(self, key, value):
+    #     if not is_valid_email(value):
+    #         raise ValueError('Invalid email address')
+    #     return value
 
     def __repr__(self):
         return f'<User {self.id}, {self.username}, {self.email}>'
