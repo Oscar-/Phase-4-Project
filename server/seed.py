@@ -82,6 +82,51 @@ def create_songs():
                 lyrics='I’m so fuckin’ sick and tired of the Photoshop',
                 release_dt=datetime.strptime('2017-03-30', '%Y-%m-%d'),
                 image='humble_image.jpg'
+            ),
+             Song(
+                name='Halo',
+                genre='Pop',
+                length=261,
+                lyrics='Remember those walls I built, well baby they’re tumbling down...',
+                release_dt=datetime.strptime('2008-01-20', '%Y-%m-%d'),
+                image='halo_image.jpg',
+                artist_id=1  # Replace with actual artist ID for Beyoncé
+            ),
+            Song(
+                name='Diamonds',
+                genre='Pop',
+                length=235,
+                lyrics='Shine bright like a diamond...',
+                release_dt=datetime.strptime('2012-09-26', '%Y-%m-%d'),
+                image='diamonds_image.jpg',
+                artist_id=2  # Replace with actual artist ID for Rihanna
+            ),
+            Song(
+                name='Boo’d Up',
+                genre='R&B',
+                length=240,
+                lyrics='Feelings, so deep in my feelings...',
+                release_dt=datetime.strptime('2017-02-20', '%Y-%m-%d'),
+                image='booed_up_image.jpg',
+                artist_id=3  # Replace with actual artist ID for Ella Mai
+            ),
+            Song(
+                name='Love Story',
+                genre='Country',
+                length=235,
+                lyrics='We were both young when I first saw you...',
+                release_dt=datetime.strptime('2008-09-12', '%Y-%m-%d'),
+                image='love_story_image.jpg',
+                artist_id=4  # Replace with actual artist ID for Taylor Swift
+            ),
+            Song(
+                name='99 Problems',
+                genre='Hip-Hop',
+                length=213,
+                lyrics='If you’re having girl problems, I feel bad for you, son...',
+                release_dt=datetime.strptime('2003-04-27', '%Y-%m-%d'),
+                image='99_problems_image.jpg',
+                artist_id=5  # Replace with actual artist ID for Jay-Z
             )
         ]
         db.session.bulk_save_objects(songs)
@@ -98,7 +143,7 @@ def create_artists():
                 birth_date=datetime.strptime('1977-06-08', '%Y-%m-%d'),
                 birth_place='Atlanta, Georgia',
                 biography='Kanye West is an American rapper, singer, songwriter, record producer, and fashion designer.',
-                image='kanye_west_image.jpg'
+                image='https://th.bing.com/th/id/OIP.67bxlko6Hc-JdgDEFP5RaQHaE8?rs=1&pid=ImgDetMain'
             ),
             Artist(
                 name='Bruno Mars',
@@ -107,7 +152,7 @@ def create_artists():
                 birth_date=datetime.strptime('1985-10-08', '%Y-%m-%d'),
                 birth_place='Honolulu, Hawaii',
                 biography='Bruno Mars is an American singer, songwriter, record producer, and performer.',
-                image='bruno_mars_image.jpg'
+                image='https://wallpapers.com/images/hd/close-up-portrait-of-bruno-mars-yzscqx02tb4zrx4w.jpg'
             ),
             Artist(
                 name='Bon Jovi',
@@ -116,7 +161,7 @@ def create_artists():
                 birth_date=datetime.strptime('1962-03-02', '%Y-%m-%d'),
                 birth_place='Perth Amboy, New Jersey',
                 biography='Bon Jovi is an American rock band formed in 1983.',
-                image='bon_jovi_image.jpg'
+                image='https://facts.net/wp-content/uploads/2023/07/14-facts-about-bon-jovi-1689324847.jpg'
             ),
             Artist(
                 name='Bad Bunny',
@@ -125,17 +170,9 @@ def create_artists():
                 birth_date=datetime.strptime('1994-03-10', '%Y-%m-%d'),
                 birth_place='San Juan, Puerto Rico',
                 biography='Bad Bunny is a Puerto Rican singer, rapper, and songwriter.',
-                image='bad_bunny_image.jpg'
+                image='https://th.bing.com/th/id/OIP.NLc_2QNJ6df50qdpDYNncgHaEK?rs=1&pid=ImgDetMain'
             ),
-            Artist(
-                name='Grupo Frontera',
-                gender='Group',
-                age=None,
-                birth_date=None,
-                birth_place=None,
-                biography='Grupo Frontera is a Mexican regional band.',
-                image='grupo_frontera_image.jpg'
-            ),
+
             Artist(
                 name='Kendrick Lamar',
                 gender='Male',
@@ -143,7 +180,52 @@ def create_artists():
                 birth_date=datetime.strptime('1987-06-17', '%Y-%m-%d'),
                 birth_place='Compton, California',
                 biography='Kendrick Lamar is an American rapper, songwriter, and record producer.',
-                image='kendrick_lamar_image.jpg'
+                image='https://i.pinimg.com/originals/49/f7/83/49f7839f13bcf6f698ecda00c3077372.jpg'
+            ),
+            Artist(
+                name='Beyoncé',
+                gender='Female',
+                age=42,
+                birth_date=datetime.strptime('1981-09-04', '%Y-%m-%d'),
+                birth_place='Houston, Texas, USA',
+                biography='Beyoncé is an American singer, songwriter, and actress, and one of the best-selling music artists of all time.',
+                image='https://www.wallpics.net/wp-content/uploads/2018/01/Beyonce-Knowles-HD.jpg'
+            ),
+            Artist(
+                name='Rihanna',
+                gender='Female',
+                age=36,
+                birth_date=datetime.strptime('1988-02-20', '%Y-%m-%d'),
+                birth_place='Saint Michael, Barbados',
+                biography='Rihanna is a Barbadian singer, actress, and businesswoman. She is known for her distinctive voice and diverse musical style.',
+                image='https://support.musicgateway.com/wp-content/uploads/2022/12/Rhianna.jpg'
+            ),
+            Artist(
+                name='Ella Mai',
+                gender='Female',
+                age=29,
+                birth_date=datetime.strptime('1994-11-03', '%Y-%m-%d'),
+                birth_place='London, England, UK',
+                biography='Ella Mai is a British singer-songwriter known for her hit single "Boo’d Up" and her contemporary R&B sound.',
+                image='https://imgix.ranker.com/list_img_v2/216/3160216/original/3160216'
+            ),
+            Artist(
+                name='Taylor Swift',
+                gender='Female',
+                age=34,
+                birth_date=datetime.strptime('1989-12-13', '%Y-%m-%d'),
+                birth_place='Reading, Pennsylvania, USA',
+                biography='Taylor Swift is an American singer-songwriter known for her narrative songwriting and successful career across multiple music genres.',
+                image='https://th.bing.com/th/id/OIP.7Vm85cfxiV9HsLb7E3bMMgHaJJ?rs=1&pid=ImgDetMain'
+            ),
+            Artist(
+                name='Jay-Z',
+                gender='Male',
+                age=54,
+                birth_date=datetime.strptime('1969-12-04', '%Y-%m-%d'),
+                birth_place='Brooklyn, New York, USA',
+                biography='Jay-Z is an American rapper, songwriter, record executive, and businessman. He is regarded as one of the greatest rappers of all time.',
+                image='https://th.bing.com/th/id/OIP.SuTOA4oFll1xL18aCYWiJQHaE8?rs=1&pid=ImgDetMain'
             )
         ]
         db.session.bulk_save_objects(artists)
