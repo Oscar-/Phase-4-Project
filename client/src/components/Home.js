@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import SongCard from "./Song/SongCard";
+import About from "./About";
 
 function Home() {
     const [songs, setSongs] = useState([]);
@@ -34,7 +35,7 @@ function Home() {
     return (
         <div>
             <section>
-                <h2>Song Selection!</h2>
+                <About />
             </section>
             <ul
                 style={{

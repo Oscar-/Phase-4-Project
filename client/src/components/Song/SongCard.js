@@ -15,7 +15,7 @@ function SongCard({ song = {} }) {
                 <p>{genre}</p>
                 <p>{length}</p>
                 <p>{release_dt}</p>
-				<br>{lyrics}</br>
+				<p>{lyrics}</p>
 			</section>
 		</li>
 	);

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+
 import Home from "./Home";
 import ArtistForm from "./Artist/ArtistForm";
 import ArtistContainer from "./Artist/ArtistContainer";
+import ArtistDetail from "./Artist/ArtistDetail";
 import SongContainer from "./Song/SongContainer";
-import NavBar from "./NavBar"; // Import NavBar
-import Header from "./Header"; // Import the Header component
+import SongForm from "./Song/SongForm";
+import SongDetail from "./Song/SongDetail";
+
+import NavBar from "./NavBar"; 
+import Header from "./Header"; 
 
 function App() {
   const [songs, setSongs] = useState([]);
@@ -25,16 +30,31 @@ function App() {
   }, []);
 
   const addArtist = (artist) => setArtists((prev) => [...prev, artist]);
+  const addSong = (song) => setSongs((prev) => [...prev, song]);
 
   return (
     <div className="App light">
       <Header />
-      <NavBar /> {/* Add NavBar here */}
+
+      <NavBar /> 
+
       <Routes>
+
         <Route path="/artist/new" element={<ArtistForm addArtist={addArtist} />} />
-        <Route path="/artist/:id" element={<ArtistContainer artists={artists} />} />
-        <Route path="/song/:id" element={<SongContainer songs={songs} />} />
+
+        <Route path="/artists" element={<ArtistContainer artists={artists} />} />
+
+        <Route path="/artists/:id" element={<ArtistDetail />} />
+
+        <Route path="/song/new" element={<SongForm addSong={addSong}/>} />
+
+        <Route path="/songs" element={<SongContainer songs={songs} />} />
+
+        <Route path="/songs/:id" element={<SongDetail />} />
+
+
         <Route path="/" element={<Home />} />
+
       </Routes>
     </div>
   );
