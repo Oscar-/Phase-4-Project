@@ -10,7 +10,7 @@ function ArtistCard({ artist }) {
                 <img src={image || "default-image.jpg"} alt={name} /> {/* Fallback image */}
             </figure>
             <section className="details">
-                <Link to={`/artist/${id}`}>
+                <Link to={`/artists/${artist.id}`}>
                     <h2>{name}</h2>
                 </Link>
                 <p>

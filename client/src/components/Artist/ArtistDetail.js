@@ -57,18 +57,17 @@ function ArtistDetail() {
                 <section className="details">
                     <h3>Discography:</h3>
                     <ul className="songs">
-                        {artist.discography.map((song) => (
+                        {artist.songs.map((song) => (
                             <li key={song.id}>
                                 <img
                                     width="100px"
-                                    src={song.artist.image || "default-image.jpg"} // Fallback image
-                                    alt={song.artist.name}
+                                    src={song.image || "default-image.jpg"} // Fallback image
+                                    alt={song.name}
                                 />
                                 <div className="song-member">
-                                    <Link to={`/artist/${song.artist.id}`}>
-                                        <p className="artist-name">{song.artist.name}</p>
+                                    <Link to={`/songs/${song.id}`}>
+                                        <p className="artist-name">{song.name}</p>
                                     </Link>
-                                    <p>{song.name}</p>
                                 </div>
                             </li>
                         ))}

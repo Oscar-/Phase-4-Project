@@ -20,7 +20,7 @@ function SongDetail() {
 			.catch(() => navigate("/not-found")); // Redirect to /not-found on error
 	}, [id, navigate]); // Added navigate to dependency array
 
-	const { name, length, lyrics, genre, release_dt, image, all_songs = [] } = song;
+	const { name, length, lyrics, genre, release_dt, image, artist_id, all_songs = [] } = song;
 
 	return (
 		<div className="song-detail" id={id}>
@@ -40,20 +40,19 @@ function SongDetail() {
 					</section>
 				</figure>
 				<section className="details">
-					<h3 style={{ margin: "16px auto" }}>Cast:</h3>
-					<ul className="song">
+					<h3 style={{ margin: "16px auto" }}> Artist </h3>
+					<ul className="artist">
 						{all_songs.map(s => (
-							<li key={s.song.id}>
+							<li key={s.id}>
 								<img
 									width={"100px"}
-									src={s.song.image}
-									alt={s.song.name}
+									src={s.image}
+									alt={s.name}
 								/>
 								<div className="s-member">
-									<Link to={`/song/${s.song.id}`}>
-										<p style={{ fontStyle: "italic" }}>{s.song.name}</p>
+									<Link to={`/artists/${artist_id}`}>
+										<p style={{ fontStyle: "italic" }}>{artist_id.name}</p>
 									</Link>
-									<p>{s.role_name}</p>
 								</div>
 							</li>
 						))}
