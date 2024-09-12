@@ -4,7 +4,7 @@ import About from "./About";
 
 function Home() {
     const [songs, setSongs] = useState([]);
-    const [error, setError] = useState(null); // Added state to handle errors
+    const [error, setError] = useState(null); 
 
     useEffect(() => {
         fetch("http://127.0.0.1:5555/song")
@@ -23,13 +23,13 @@ function Home() {
             }
         })
         .catch(err => {
-            setError(err.message); // Set error message
+            setError(err.message); 
             console.error(err);
         });
     }, []);
 
     if (error) {
-        return <div>Error: {error}</div>; // Display error message if there's an error
+        return <div>Error: {error}</div>; 
     }
 
     return (

@@ -148,7 +148,7 @@ def create_songs(artist_ids):
             length=269,
             lyrics='Don’t believe me, just watch',
             release_dt=datetime.strptime('2014-11-10', '%Y-%m-%d'),
-            image='https://th.bing.com/th/id/OIP.67bxlko6Hc-JdgDEFP5RaQHaE8?rs=1&pid=ImgDetMain',
+            image='https://i.pinimg.com/736x/f3/5c/59/f35c5921869b22f39ea9f8a1b5a9b04b.jpg',
             artist_id=artist_ids['Bruno Mars']
         )
         song3 = Song(

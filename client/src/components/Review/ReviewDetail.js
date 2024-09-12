@@ -26,8 +26,7 @@ function ReviewDetail() {
             .catch(() => {
                 setError("Review not found");
                 setLoading(false);
-                // Optionally navigate to a not-found page
-                // navigate("/not-found");
+
             });
     }, [params.id, navigate]);
 

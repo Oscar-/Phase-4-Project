@@ -16,12 +16,12 @@ class Artist(db.Model, SerializerMixin):
     biography = db.Column(db.String)
     image = db.Column(db.String)
 
-    # Relationships
+    
     songs = db.relationship('Song', back_populates='artist')
     reviews = db.relationship('Review', back_populates='artist', lazy=True)
     favorites = db.relationship('Favorite', back_populates='artist', lazy=True)
 
-    # Many-to-many relationships
+    
     many_songs = association_proxy('reviews', 'song')
 
     serialize_rules = ('-reviews.artist', '-favorites.artist', '-favorites.user.reviews', '-favorites.user.favorites', '-songs.artist')
@@ -59,12 +59,12 @@ class Song(db.Model, SerializerMixin):
     image = db.Column(db.String)
     artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'))
 
-    # Relationships
+    
     artist = db.relationship('Artist', back_populates='songs')
     reviews = db.relationship('Review', back_populates='song', lazy=True)
     favorites = db.relationship('Favorite', back_populates='song', lazy=True)
 
-    # Many-to-many relationships
+   
     many_artists = association_proxy('reviews', 'artist')
 
     serialize_rules = ('-reviews.song', '-favorites.song', '-favorites.user.reviews', '-favorites.user.favorites')
@@ -102,7 +102,7 @@ class Review(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    # Relationships
+    
     artist = db.relationship('Artist', back_populates='reviews')
     song = db.relationship('Song', back_populates='reviews')
     user = db.relationship('User', back_populates='reviews')
@@ -146,7 +146,7 @@ class User(db.Model, SerializerMixin):
     image_url = db.Column(db.String)
     bio = db.Column(db.String)
 
-    # Relationships
+    
     reviews = db.relationship('Review', back_populates='user', lazy=True)
     favorites = db.relationship('Favorite', back_populates='user', lazy=True)
 
