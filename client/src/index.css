@@ -10,34 +10,33 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4; /* Default background color */
-  color: #333; /* Default text color */
+  background-color: #f4f4f4;
+  color: #333;
 }
 
 /* Light theme styles */
 .App.light {
-  background-color: darkslategrey; /* White background for light theme */
-  color: #000000; /* Black text color for light theme */
+  background-color: darkslategrey;
+  color: #000;
 }
 
-/* Additional styles for elements within the light theme */
 .App.light h1, .App.light h2, .App.light h3 {
-  color: #000000; /* Darker headings for light theme */
+  color: #000;
 }
 
 .App.light .button {
-  background-color: 'https://wallpapers.com/images/hd/music-notes-background-094jpwqvx4x923th.jpg'; /* Light grey background for buttons */
-  color: #000000; /* Dark text color for buttons */
+  background-color: #f4f4f4; /* Use a color for buttons instead of an image URL */
+  color: #000;
 }
 
 /* NavBar styles */
 .NavBar {
-  background-color: #333; /* Dark background for the navbar */
+  background-color: #333;
   padding: 10px;
 }
 
 .NavBar ul {
-  list-style: none; /* Remove default list styling */
+  list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
@@ -48,29 +47,29 @@ body {
 }
 
 .NavBar a {
-  color: #fff; /* White text color */
-  text-decoration: none; /* Remove underline from links */
+  color: #fff;
+  text-decoration: none;
 }
 
 .NavBar a:hover {
-  text-decoration: underline; /* Underline on hover for better UX */
+  text-decoration: underline;
 }
 
 /* Header styles */
 header {
-  background-color: var(--bg); /* Use CSS variable for background */
-  color: var(--header); /* Use CSS variable for text color */
-  padding: 10px 20px; /* Padding around the header */
-  text-align: center; /* Center align text */
+  background-color: var(--bg);
+  color: var(--header);
+  padding: 10px 20px;
+  text-align: center;
 }
 
 header h1 {
-  font-size: 2rem; /* Larger font size for the header */
-  margin: 0; /* Remove default margin */
+  font-size: 2rem;
+  margin: 0;
 }
 
 header .logo {
-  font-size: 1.5rem; /* Adjust size of the logo emoji */
+  font-size: 1.5rem;
 }
 
 /* Style for individual artist cards */
@@ -172,18 +171,19 @@ header .logo {
   color: var(--link);
 }
 
+/* Style for card containers on the home page */
 .cards {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: flex; /* Use flexbox for horizontal layout */
+  flex-wrap: nowrap; /* Prevent wrapping to the next line */
+  overflow-x: auto; /* Allow horizontal scrolling if needed */
 }
 
 .cards .card {
   margin: 10px;
-  /* Additional styling for cards */
+  flex: 0 0 auto; /* Prevent cards from shrinking or growing */
 }
 
 .cards .card .image {
@@ -196,4 +196,23 @@ header .logo {
 
 .cards .card .details h2 {
   margin: 0;
+}
+
+/* About section styles */
+.about {
+  max-width: 800px; /* Adjust the maximum width of the section */
+  margin: 0 auto; /* Center the section horizontally */
+  padding: 20px; /* Add some padding */
+  text-align: center; /* Center the text */
+  background-color: #fff; /* Optional: Add background color for better contrast */
+  border-radius: 8px; /* Optional: Round the corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visual */
+}
+
+.about h2 {
+  margin-top: 0; /* Remove top margin */
+}
+
+.about p {
+  margin-bottom: 1em; /* Add space between paragraphs */
 }
