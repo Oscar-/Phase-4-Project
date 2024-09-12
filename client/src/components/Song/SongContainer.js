@@ -9,7 +9,7 @@ function SongContainer({ songs, onDeleteSong }) {
                     <SongCard 
                         key={song.id} 
                         song={song} 
-                        onDeleteSong={onDeleteSong} 
+                        onDelete={onDeleteSong} 
                     />
                 ))}
             </ul>

@@ -32,6 +32,9 @@ from app import app
 #         db.session.commit()
 
 
+
+
+
 def create_artists():
     with app.app_context():
         artist1 = Artist(
@@ -229,7 +232,7 @@ def create_songs(artist_ids):
             length=220,
             lyrics='If you’re havin’ girl problems I feel bad for you, son...',
             release_dt=datetime.strptime('2003-06-16', '%Y-%m-%d'),
-            image='https://pics.filmaffinity.com/jay_z_99_problems-927241038-large.jpg',
+            image='https://i.discogs.com/iX5lJaD9BcbAyyjdwGjsQ44BzPmTSAJlYaXlWL6sjIY/rs:fit/g:sm/q:90/h:542/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTc2NzEz/NTUtMTY0MDczMzc0/MS05NTg5LmpwZWc.jpeg',
             artist_id=artist_ids['Jay-Z']
         )
 

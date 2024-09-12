@@ -29,8 +29,7 @@ function App() {
       .catch((error) => console.error(error));
   }, []);
 
-  const addArtist = (artist) => setArtists((prev) => [...prev, artist]);
-  const addSong = (song) => setSongs((prev) => [...prev, song]);
+
 
   const onDeleteArtist = (id) => {
     fetch(`http://127.0.0.1:5555/artist/${id}`, {
@@ -46,6 +45,7 @@ function App() {
         }
     })
     .then(data => {
+        console.log(data.message)
         if (data.message === 'Artist deleted successfully') {
             setArtists(prevArtists => prevArtists.filter(artist => artist.id !== id));
         } else {
@@ -78,6 +78,8 @@ const onDeleteSong = (id) => {
     .catch(error => console.error('Error:', error));
 };
 
+const addArtist = (artist) => setArtists((prev) => [...prev, artist]);
+const addSong = (song) => setSongs((prev) => [...prev, song]);
 
   return (
     <div className="App light">

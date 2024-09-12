@@ -8,7 +8,7 @@ function ArtistContainer({ artists, onDeleteArtist }) {
                     <ArtistCard 
                         key={artist.id} 
                         artist={artist} 
-                        onDeleteArtist={onDeleteArtist} 
+                        onDelete={onDeleteArtist} 
                     />
                 ))}
             </ul>

@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
-function ArtistForm() {
+function ArtistForm({ addArtist }) {
     const navigate = useNavigate();
 
     const schema = yup.object().shape({
@@ -27,30 +27,21 @@ function ArtistForm() {
         },
         validationSchema: schema,
         onSubmit: (values) => {
-            fetch("/artist", {
+            fetch("http://127.0.0.1:5555/artist", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values),
             })
-            .then((res) => {
-                console.log('Response Status:', res.status); // Log the status code
-
-                return res.text().then((text) => {
-                    console.log('Response Text:', text); // Log the response text
-
-                    if (res.ok) {
-                        const jsonResponse = JSON.parse(text); // Parse the text if the status is OK
-                        navigate(`/artist/${jsonResponse.id}`);
-                    } else {
-                        console.error("Error response:", text); // Log the error response
-                    }
-                });
+            .then((res) => res.json())
+            .then((newArtist) => {
+                // Add the new artist to state
+                addArtist(newArtist);
+                // Navigate to the artist detail page
+                navigate(`/artists/${newArtist.id}`);
             })
-            .catch((error) => {
-                console.error("Fetch error:", error); // Log any fetch errors
-            });
+            .catch((error) => console.error("Fetch error:", error));
         },
     });
 
@@ -155,4 +146,3 @@ function ArtistForm() {
 }
 
 export default ArtistForm;
-

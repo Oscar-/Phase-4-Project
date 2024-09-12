@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-function SongForm() {
+function SongForm({ addSong }) {
     const navigate = useNavigate();
 
     // Create schema for form validation
@@ -33,21 +33,15 @@ function SongForm() {
                 body: JSON.stringify(values),
                 headers: { 'Content-Type': 'application/json' }
             })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    console.error("Something went wrong with POST request");
-                    throw new Error("Failed to create song");
-                }
+            .then((res) => res.json())
+            .then((newSong) => {
+                // Add the new song to state
+                addSong(newSong);
+                // Navigate to the song detail page or another appropriate path
+                navigate(`/songs/${newSong.id}`);
             })
-            .then(data => {
-                navigate(`/song/${data.id}`);
-            })
-            .catch(error => {
-                console.error(error.message);
-            });
-        }
+            .catch((error) => console.error("Fetch error:", error));
+        },
     });
 
     return (
@@ -88,7 +82,7 @@ function SongForm() {
 
                 <label>Release Date</label>
                 <input
-                    type="date"  // Ensure correct date format
+                    type="date"  
                     name="release_dt"
                     onChange={formik.handleChange}
                     value={formik.values.release_dt}
@@ -120,7 +114,7 @@ function SongForm() {
                     <h3 style={{ color: "red" }}>{formik.errors.lyrics}</h3>
                 )}
 
-                <input className="button" type="submit" />
+                <input className="button" type="submit" value="Submit Song" />
             </form>
         </section>
     );
