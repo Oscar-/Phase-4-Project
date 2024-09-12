@@ -1,3 +1,13 @@
-//import ReviewCard from "./ReviewCard";
+import ReviewCard from "./ReviewCard";
 
-//export default ReviewContainer;
+function ReviewContainer({ review }) {
+    return (
+      <section>
+           <ul className='cards'>
+               {reviews.map(review => <ReviewCard  key={review.id} review={review}  />)}
+           </ul>
+       </section>
+    )
+  }
+
+export default ReviewContainer;
