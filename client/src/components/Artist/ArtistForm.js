@@ -42,7 +42,7 @@ function ArtistForm() {
 
                     if (res.ok) {
                         const jsonResponse = JSON.parse(text); // Parse the text if the status is OK
-                        navigate(`/artists/${jsonResponse.id}`);
+                        navigate(`/artist/${jsonResponse.id}`);
                     } else {
                         console.error("Error response:", text); // Log the error response
                     }

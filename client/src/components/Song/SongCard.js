@@ -9,7 +9,7 @@ function SongCard({ song = {} }) {
 				<img src={image} alt={name} />
 			</figure>
 			<section className="details">
-				<Link to={`/song/${id}`}>
+				<Link to={`/songs/${song.id}`}>
 					<h2>{name}</h2>
 				</Link>
                 <p>{genre}</p>
