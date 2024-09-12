@@ -47,7 +47,7 @@ function ReviewDetail() {
             <p>{content}</p>
             <div className="review-card">
                 <figure className="image">
-                    <img src={image || "default-image.jpg"} alt={name} /> {/* Fallback image */}
+                    <img src={image || "default-image.jpg"} /> 
                     <section>
                         <p>Artist: {artist_id}</p>
                         <p>User: {user_id}</p>

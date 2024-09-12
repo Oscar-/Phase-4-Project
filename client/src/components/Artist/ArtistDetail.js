@@ -26,9 +26,7 @@ function ArtistDetail() {
             })
             .catch(() => {
                 setError("Artist not found");
-                setLoading(false);
-                // Optionally navigate to a not-found page
-                // navigate("/not-found");
+                setLoading(false)
             });
     }, [params.id, navigate]);
 
@@ -60,7 +58,7 @@ function ArtistDetail() {
             <p>{biography}</p>
             <div className="artist-card">
                 <figure className="image">
-                    <img src={image || "default-image.jpg"} alt={name} /> {/* Fallback image */}
+                    <img src={image || "default-image.jpg"} /> 
                     <section>
                         <p>Gender: {gender}</p>
                         <p>Birth Date: {birth_date}</p>
@@ -74,7 +72,7 @@ function ArtistDetail() {
                             <li key={song.id}>
                                 <img
                                     width="100px"
-                                    src={song.image || "default-image.jpg"} // Fallback image
+                                    src={song.image || "default-image.jpg"} 
                                     alt={song.name}
                                 />
                                 <div className="song-member">

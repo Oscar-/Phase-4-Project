@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import SongCard from "./Song/SongCard";
 import About from "./About";
 
 function Home() {
@@ -37,24 +36,7 @@ function Home() {
             <section>
                 <About />
             </section>
-            {/* <ul
-                style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    justifyContent: "center",
-                }}
-            >
-                {songs.map((el) => (
-                    <section
-                        key={el.id}
-                        style={{ display: "flex", flexDirection: "column" }}
-                    >
-                        <h3>{el.length} minutes</h3>
-                        <SongCard artist={el} />
-                    </section>
-                ))}
-            </ul> */}
-            <section></section>
+            
         </div>
     );
 }

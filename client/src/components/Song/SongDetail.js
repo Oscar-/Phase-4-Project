@@ -50,7 +50,7 @@ function SongDetail() {
 						<p>Length: {length}</p>
 						<p>Release Date: {release_dt}</p>
 						<p>Lyrics:</p>
-						<pre>{lyrics}</pre> {/* Use <pre> to preserve formatting */}
+						<pre>{lyrics}</pre> 
 					</section>
 				</figure>
 				<section className="details">

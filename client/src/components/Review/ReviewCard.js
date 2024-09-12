@@ -8,7 +8,7 @@ function ReviewCard({ review }) {
     return (
         <li className="card" id={id}>
             <figure className="review">
-                <img src={image || "default-image.jpg"} alt={name} /> {/* Fallback image */}
+                <img src={image || "default-image.jpg"} /> 
             </figure>
             <section className="details">
                 <Link to={`/review/${id}`}>
