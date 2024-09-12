@@ -3,119 +3,119 @@
 ## A one sentence description of your app.
 RhythmRadar is an interactive music review app that allows users to rate and comment on music while providing insights into the song's historical impact and popularity. 
 
-RhythmRadar Setup Guide
+## RhythmRadar Setup Guide
 
-Prerequisites
+# Prerequisites
 
 Ensure you have the following installed on your system:
 
-Node.js and npm: For managing JavaScript dependencies and running the React app.
+- Node.js and npm: For managing JavaScript dependencies and running the React app.
 
-Python 3.8.x: Required for running the Flask backend.
+- Python 3.8.x: Required for running the Flask backend.
 
-pipenv: For managing Python dependencies and virtual environments.
+- pipenv: For managing Python dependencies and virtual environments.
 
-Fork the Repository
+## Fork the Repository
 
 Before you begin, you need to fork the repository to your own GitHub account. This will allow you to make changes and push them to your own fork.
 
-Go to the RhythmRadar repository on GitHub.
+1. Go to the RhythmRadar repository on GitHub.
 
-Click the "Fork" button in the upper right corner of the page.
+2. Click the "Fork" button in the upper right corner of the page.
 
 Once forked, clone your forked repository to your local machine:
 
-git clone git@github.com:Oscar-/Phase-4-Project.git
-cd Phase-4-Project
+# git clone git@github.com:Oscar-/Phase-4-Project.git
+# cd Phase-4-Project
 
-Backend Setup (Flask)
+## Backend Setup (Flask)
 
-Set Up the Python Environment
+1. # Set Up the Python Environment
 
 Install dependencies and set up the virtual environment using pipenv:
 
-pipenv install
+# pipenv install
 
-pipenv shell
+# pipenv shell
       
-Set Up the Database
+2. Set Up the Database
 
 Initialize the database with the seed data:
 
 python seed.py
 
-Run the Flask Server
+3. # Run the Flask Server
 
 Use honcho to start the server with the Procfile.dev configurations:
 
-honcho start -f Procfile.dev
+# honcho start -f Procfile.dev
 
 The Flask server should now be running at http://127.0.0.1:5555.
 
-Frontend Setup (React)
+## Frontend Setup (React)
 
-Navigate to the Frontend Directory
+1. Navigate to the Frontend Directory
 
 From the root of the project, go to the React app directory:
 
-cd client
+# cd client
 
-Install Dependencies
+2. Install Dependencies
 
 Install the required npm packages:
 
-npm install
+# npm install
 
-Start the React Development Server
+3. Start the React Development Server
 
 Start the React development server:
 
-npm start
+# npm start
 
 The React app should now be running at http://localhost:3000.
 
-Proxy Configuration
+## Proxy Configuration
 
 The React app uses a proxy to forward API requests to the Flask backend, which is configured in package.json: 
 
-"proxy": "http://localhost:5555"
+# "proxy": "http://localhost:5555"
 
 This setup helps avoid CORS issues by forwarding API requests made by the React frontend to the Flask backend server.
 
-Connecting Frontend and Backend
+## Connecting Frontend and Backend
 
 Ensure that the backend Flask server is running before starting the React app. The React app will make API requests to the Flask server to fetch and send data.
 
-API Endpoints: Make sure the API endpoints used in your React app match those exposed by the Flask backend.
+ - API Endpoints: Make sure the API endpoints used in your React app match those exposed by the Flask backend.
 
-Environment Configuration
+## Environment Configuration
 
 You might need to set up environment variables for your Flask app. Create a .env file in the server directory and include any necessary configurations. An example .env file might look like this:
 
-FLASK_APP=app.py
-FLASK_ENV=development
-DATABASE_URL=sqlite:///yourdatabase.db
+# FLASK_APP=app.py
+# FLASK_ENV=development
+# DATABASE_URL=sqlite:///yourdatabase.db
 
-Procfile.dev
+## Procfile.dev
 
 Ensure you have a Procfile.dev in your root directory with the following content:
 
-web: PORT=3000 npm start --prefix client
-api: gunicorn -b 127.0.0.1:5555 --chdir ./server app:app
+# web: PORT=3000 npm start --prefix client
+# api: gunicorn -b 127.0.0.1:5555 --chdir ./server app:app
 
 This configuration allows you to run both the frontend and backend servers concurrently.
 
-Troubleshooting
+## Troubleshooting
 
-Port Conflicts: Ensure that ports 3000 (React) and 5555 (Flask) are not being used by other applications.
+- Port Conflicts: Ensure that ports 3000 (React) and 5555 (Flask) are not being used by other applications.
 
-CORS Issues: If you encounter CORS issues, make sure the flask-cors package is properly configured in your Flask app.
+- CORS Issues: If you encounter CORS issues, make sure the flask-cors package is properly configured in your Flask app.
 
-Additional Notes
+## Additional Notes
 
-For Production: For production deployment, consider using Docker and a cloud provider or hosting service.
+- For Production: For production deployment, consider using Docker and a cloud provider or hosting service.
 
-Testing: Ensure you run tests for both the frontend and backend to verify that everything is functioning as expected.
+- Testing: Ensure you run tests for both the frontend and backend to verify that everything is functioning as expected.
 
 
 ## Our wireframe
