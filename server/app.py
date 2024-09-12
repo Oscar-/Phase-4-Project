@@ -164,6 +164,82 @@ def song_by_id(id):
         db.session.delete(song)
         db.session.commit()
         return jsonify({'message': 'Song deleted successfully'}), 200
+    
+@app.route('/reviews/<int:review_id>', methods=['GET'])
+def get_review(review_id):
+    review = Review.query.get(review_id)
+    if review:
+        return jsonify(review.to_dict())
+    return {'message': 'Review not found'}, 404
+
+@app.route('/reviews', methods=['POST'])
+def create_review():
+    parser = request.get_json()
+    content = parser.get('content')
+    rating = parser.get('rating')
+    artist_id = parser.get('artist_id')
+    song_id = parser.get('song_id')
+    user_id = parser.get('user_id')
+
+    if not content or not rating or not artist_id or not song_id or not user_id:
+        return {'message': 'Missing required fields'}, 400
+
+    try:
+        review = Review(
+            content=content,
+            rating=rating,
+            artist_id=artist_id,
+            song_id=song_id,
+            user_id=user_id
+        )
+        db.session.add(review)
+        db.session.commit()
+        return jsonify(review.to_dict())
+    except Exception as e:
+        return {'message': str(e)}, 400
+
+@app.route('/reviews/<int:review_id>', methods=['PUT'])
+def update_review(review_id):
+    review = Review.query.get(review_id)
+    if not review:
+        return {'message': 'Review not found'}, 404
+
+    data = request.get_json()
+    content = data.get('content')
+    rating = data.get('rating')
+    artist_id = data.get('artist_id')
+    song_id = data.get('song_id')
+    user_id = data.get('user_id')
+
+    if content:
+        review.content = content
+    if rating:
+        review.rating = rating
+    if artist_id:
+        review.artist_id = artist_id
+    if song_id:
+        review.song_id = song_id
+    if user_id:
+        review.user_id = user_id
+
+    try:
+        db.session.commit()
+        return jsonify(review.to_dict())
+    except Exception as e:
+        return {'message': str(e)}, 400
+
+@app.route('/reviews/<int:review_id>', methods=['DELETE'])
+def delete_review(review_id):
+    review = Review.query.get(review_id)
+    if not review:
+        return {'message': 'Review not found'}, 404
+
+    try:
+        db.session.delete(review)
+        db.session.commit()
+        return {'message': 'Review deleted'}, 204
+    except Exception as e:
+        return {'message': str(e)}, 400
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
