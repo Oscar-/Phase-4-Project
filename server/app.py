@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from config import app, db
 from models import Artist, Song, Review, Favorite, User
 from flask_cors import CORS
+from datetime import datetime
+import logging
 
 # Allow CORS for all routes
 CORS(app)
@@ -29,19 +31,27 @@ def handle_artists():
             required_fields = ['name', 'gender', 'birth_date']
             if not all(field in data for field in required_fields):
                 return jsonify({'error': 'Bad request, name, gender, and birth_date are required'}), 400
+
+            # Convert 'birth_date' string to a Python date object
+            birth_date = datetime.strptime(data['birth_date'], '%d-%m-%y').date()
+
             new_artist = Artist(
                 name=data['name'],
                 gender=data['gender'],
-                birth_date=data.get('birth_date'),
+                birth_date=birth_date,
                 birth_place=data.get('birth_place'),
                 biography=data.get('biography'),
-                image=data.get('image')
+                image=data.get('image'),
+                age=data.get('age')  # Optional
             )
             db.session.add(new_artist)
             db.session.commit()
             return jsonify(new_artist.to_dict()), 201
+        except ValueError as ve:
+            return jsonify({'error': f"Invalid date format: {ve}"}), 400
         except Exception as e:
-            print(f"Error occurred during POST: {e}")
+            db.session.rollback()
+            logging.error(f"Error occurred during POST: {e}")
             return jsonify({'error': 'Internal Server Error'}), 500
 
 @app.route('/users', methods=['GET', 'POST'])
@@ -110,19 +120,29 @@ def handle_songs():
         except Exception as e:
             print(f"Error occurred during GET: {e}")
             return jsonify({'error': 'Internal Server Error'}), 500
+
     elif request.method == 'POST':
         try:
             data = request.get_json(force=True)
+            print(f"Received data: {data}")  # Debug statement
+
             required_fields = ['name', 'genre', 'release_dt']
             if not all(field in data for field in required_fields):
                 return jsonify({'error': 'Bad request, name, genre, and release_dt are required'}), 400
+
+            try:
+                release_dt = datetime.strptime(data['release_dt'], '%Y-%m-%d').date()
+            except ValueError:
+                return jsonify({'error': 'Invalid date format'}), 400
+
             new_song = Song(
                 name=data['name'],
                 genre=data['genre'],
                 length=data.get('length'),
                 lyrics=data.get('lyrics'),
-                release_dt=data['release_dt'],
-                image=data.get('image')
+                release_dt=release_dt,
+                image=data.get('image'),
+                artist_id=data.get('artist_id')
             )
             db.session.add(new_song)
             db.session.commit()

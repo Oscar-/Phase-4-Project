@@ -215,7 +215,7 @@ def create_songs(artist_ids):
             artist_id=artist_ids['Ella Mai']
         )
         song10 = Song(
-            name='Blank Space',
+            name='Love Story',
             genre='Pop',
             length=231,
             lyrics='Got a long list of ex-lovers',
