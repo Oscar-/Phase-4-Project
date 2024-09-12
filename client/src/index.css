@@ -1,46 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 :root {
   --bg: #282c34;
   --header: #fff;
   --link: #61dafb;
   --text: hsla(0, 0%, 100%, 0.88);
+  --primary-color: #61dafb;
+  --secondary-color: #282c34;
+  --button-hover: #1a73e8;
 }
 
 /* General styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4; /* Default background color */
-  color: #333; /* Default text color */
+  background-color: #f4f4f4;
+  color: var(--text);
+}
+
+/* Centered Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
 }
 
 /* Light theme styles */
 .App.light {
-  background-color: darkslategrey; /* White background for light theme */
-  color: #000000; /* Black text color for light theme */
+  background-color: darkslategrey;
+  color: #000;
 }
 
-/* Additional styles for elements within the light theme */
 .App.light h1, .App.light h2, .App.light h3 {
-  color: #000000; /* Darker headings for light theme */
+  color: #000;
 }
 
 .App.light .button {
-  background-color: 'https://wallpapers.com/images/hd/music-notes-background-094jpwqvx4x923th.jpg'; /* Light grey background for buttons */
-  color: #000000; /* Dark text color for buttons */
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.App.light .button:hover {
+  background-color: var(--button-hover);
 }
 
 /* NavBar styles */
 .NavBar {
-  background-color: #333; /* Dark background for the navbar */
+  background-color: var(--secondary-color);
   padding: 10px;
 }
 
 .NavBar ul {
-  list-style: none; /* Remove default list styling */
+  list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
+  justify-content: center;
 }
 
 .NavBar li {
@@ -48,40 +71,48 @@ body {
 }
 
 .NavBar a {
-  color: #fff; /* White text color */
-  text-decoration: none; /* Remove underline from links */
+  color: #fff;
+  text-decoration: none;
 }
 
 .NavBar a:hover {
-  text-decoration: underline; /* Underline on hover for better UX */
+  text-decoration: underline;
 }
 
 /* Header styles */
 header {
-  background-color: var(--bg); /* Use CSS variable for background */
-  color: var(--header); /* Use CSS variable for text color */
-  padding: 10px 20px; /* Padding around the header */
-  text-align: center; /* Center align text */
+  background-color: var(--bg);
+  color: var(--header);
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
 }
 
 header h1 {
-  font-size: 2rem; /* Larger font size for the header */
-  margin: 0; /* Remove default margin */
+  font-size: 3rem;
+  margin: 0;
+  font-weight: 700;
 }
 
 header .logo {
-  font-size: 1.5rem; /* Adjust size of the logo emoji */
+  font-size: 1.5rem;
 }
 
-/* Style for individual artist cards */
+/* Artist cards styling */
 .card {
   max-width: 300px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: none;
+  border-radius: 30px;
   overflow: hidden;
   margin: 10px;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .card .image img {
@@ -91,61 +122,53 @@ header .logo {
 }
 
 .card .details {
-  padding: 15px;
+  padding: 20px;
 }
 
 .card .details h2 {
   margin: 0;
-  font-size: 1.2em;
+  font-size: 1.5em;
 }
 
 .card .details p {
-  margin: 5px 0;
-  font-size: 0.9em;
-  color: #333;
+  margin: 0px;
+  font-size: 1em;
+  color: var(--text);
 }
 
 .card .details a {
   text-decoration: none;
   color: var(--link);
+  transition: color 0.3s ease;
 }
 
 .card .details a:hover {
+  color: var(--button-hover);
   text-decoration: underline;
 }
 
-/* Style for the artist detail page */
-.artist-detail {
-  padding: 20px;
-  background-color: #f9f9f9;
+/* About section styles */
+.about {
+  max-width: 500px;
+  margin: 100px auto;
+  padding: 50px;
+  text-align: center;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.artist-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  max-width: 800px;
+.about h2 {
+  margin-top: 0;
+  font-size: 2rem;
 }
 
-.artist-card .image img {
-  width: 100%;
-  height: auto;
+.about p {
+  font-size: 1.1rem;
+  color: #666;
 }
 
-.artist-card section {
-  padding: 15px;
-}
-
-.artist-card .details {
-  width: 100%;
-  padding: 15px;
-}
-
+/* Songs list styling */
 .songs {
   list-style: none;
   padding: 0;
@@ -175,25 +198,226 @@ header .logo {
 .cards {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 20px auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .cards .card {
-  margin: 10px;
-  /* Additional styling for cards */
+  margin: 20px;
+  flex: 1 1 250px;
+}
+/* General form styles */
+.form {
+  max-width: 500px;
+  margin: 40px auto; /* Center the form horizontally */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
 }
 
-.cards .card .image {
+.form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form input,
+.form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease;
+}
+
+.form input:focus,
+.form select:focus {
+  border-color: var(--link);
+  outline: none;
+}
+
+.form button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--link);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form button:hover {
+  background-color: #21a1f1;
+}
+
+/* Form section header */
+section {
+  text-align: center;
+  padding: 20px 0;
+}
+
+section h2 {
+  font-size: 2rem;
+  color: var(--header);
+  margin-bottom: 20px;
+}
+
+/* Error message styles */
+.form p {
+  color: red;
+  font-size: 0.9em;
+  margin-top: -10px;
   margin-bottom: 10px;
 }
 
-.cards .card .details {
-  padding: 10px;
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .form {
+    padding: 15px;
+  }
 }
 
-.cards .card .details h2 {
-  margin: 0;
+/* Global styles for both ArtistDetail and SongDetail */
+.detail-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.detail-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.detail-page p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* ArtistDetail and SongDetail specific styles */
+.artist-detail, .song-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.artist-card, .song-card {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-top: 20px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.image img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.details {
+  flex-grow: 1;
+  padding: 10px;
+  text-align: left;
+}
+
+.details h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.songs ul, .artist ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.songs li, .artist li {
+  margin: 10px;
+  width: 120px;
+  text-align: center;
+}
+
+.songs img, .artist img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.song-member, .s-member {
+  font-size: 1rem;
+  color: #333;
+}
+
+.song-member a, .s-member a {
+  text-decoration: none;
+  color: #3498db;
+  transition: color 0.3s ease;
+}
+
+.song-member a:hover, .s-member a:hover {
+  color: #2c3e50;
+}
+
+.pre {
+  white-space: pre-wrap; /* This will preserve the format of the lyrics */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .artist-card, .song-card {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .image img {
+      width: 120px;
+      height: 120px;
+  }
+  
+  .details {
+      padding: 0;
+  }
+  
+  .songs li, .artist li {
+      width: 100px;
+  }
+}
+
+.delete-btn {
+  background-color: grey;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
 }

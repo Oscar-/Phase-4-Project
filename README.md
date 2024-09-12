@@ -11,7 +11,8 @@ RhythmRadar is an interactive music review app that allows users to rate and com
 ![image](https://github.com/user-attachments/assets/8da3bd55-7258-468e-9498-200ab2280fbd)
 
 ## React Tree Diagram
-<img width="1286" alt="Screenshot 2024-09-09 at 9 08 21 AM" src="https://github.com/user-attachments/assets/951b3e3d-edb9-475a-93b7-4ce08607249e">
+<img width="1244" alt="Screenshot 2024-09-12 at 2 30 14 AM" src="https://github.com/user-attachments/assets/37dcb584-17c8-40fe-be5e-10f2742dd515">
+
 
 ## React Routes
 <img width="717" alt="Screenshot 2024-09-09 at 9 48 41 AM" src="https://github.com/user-attachments/assets/20854ecf-d882-4bf2-b1a2-1b68a783e843">

@@ -35,21 +35,21 @@ function ReviewForm() {
                 body: JSON.stringify(values),
             })
             .then((res) => {
-                console.log('Response Status:', res.status); // Log the status code
+                console.log('Response Status:', res.status); 
 
                 return res.text().then((text) => {
-                    console.log('Response Text:', text); // Log the response text
+                    console.log('Response Text:', text); 
 
                     if (res.ok) {
-                        const jsonResponse = JSON.parse(text); // Parse the text if the status is OK
+                        const jsonResponse = JSON.parse(text); 
                         navigate(`/reviews/${jsonResponse.id}`);
                     } else {
-                        console.error("Error response:", text); // Log the error response
+                        console.error("Error response:", text); 
                     }
                 });
             })
             .catch((error) => {
-                console.error("Fetch error:", error); // Log any fetch errors
+                console.error("Fetch error:", error);
             });
         },
     });
