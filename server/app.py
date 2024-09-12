@@ -85,6 +85,7 @@ def handle_users():
 @app.route('/artist/<int:id>', methods=['GET', 'DELETE'])
 def artist_by_id(id):
     artist = Artist.query.get(id)
+    print(f"Requested ID: {id}, Artist Found: {artist}")  # Add logging
     if request.method == 'GET':
         if artist is None:
             return jsonify({'error': 'Artist not found'}), 404
@@ -95,6 +96,7 @@ def artist_by_id(id):
         db.session.delete(artist)
         db.session.commit()
         return jsonify({'message': 'Artist deleted successfully'}), 200
+
 
 @app.route('/user/<int:id>', methods=['GET', 'DELETE'])
 def user_by_id(id):

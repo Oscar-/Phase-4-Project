@@ -1,5 +1,5 @@
 import React from 'react';
-import ReviewContainer from './ReviewContainer'; // Make sure this import matches the filename
+import ReviewContainer from './ReviewContainer';
 
 function ReviewPage({ reviews }) {
   return (

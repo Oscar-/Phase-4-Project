@@ -3,16 +3,16 @@ import React, { useState } from "react";
 function Search({ searchArtist, searchSong }) {
     const [form, setForm] = useState('');
 
-    // Function to handle input change
+    
     const handleChange = (e) => {
         setForm(e.target.value);
     };
 
-    // Function to handle form submission
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         if (form.trim()) {
-            // Call the appropriate callback based on your requirements
+            
             if (searchArtist) {
                 searchArtist(form);
             }

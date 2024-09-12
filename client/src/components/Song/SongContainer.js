@@ -1,14 +1,20 @@
+import React from "react";
 import SongCard from "./SongCard";
 
-function SongContainer({songs}) {
-
+function SongContainer({ songs, onDeleteSong }) {
     return (
-     <section>
-         <ul className='cards'>
-             {songs.map(song => <SongCard  key={song.id} song={song}  />)}
-         </ul>
-     </section>
-    )
-  }
-  
+        <section>
+            <ul className='cards'>
+                {songs.map(song => (
+                    <SongCard 
+                        key={song.id} 
+                        song={song} 
+                        onDeleteSong={onDeleteSong} 
+                    />
+                ))}
+            </ul>
+        </section>
+    );
+}
+
 export default SongContainer;
